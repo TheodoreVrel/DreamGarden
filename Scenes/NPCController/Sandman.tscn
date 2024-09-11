@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://kwe3112ujidu"]
+
+[ext_resource type="Script" path="res://Scenes/NPCController/NPC.gd" id="1_snjig"]
+[ext_resource type="Texture2D" uid="uid://cp7b0176agyai" path="res://Assets/flower sheet.png" id="2_p6bqw"]
+[ext_resource type="PackedScene" uid="uid://l68djswjsttx" path="res://Scenes/Flower/flower.tscn" id="3_garnp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kkrdy"]
+radius = 9.0
+height = 54.0
+
+[node name="Sandman" type="Node2D"]
+script = ExtResource("1_snjig")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_p6bqw")
+region_enabled = true
+region_rect = Rect2(101, 107, 58, 40)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+collision_layer = 2
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(0, 11)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_kkrdy")
+
+[node name="Inventory" type="Node2D" parent="."]
+visible = false
+
+[node name="Flower" parent="Inventory" instance=ExtResource("3_garnp")]
+id = 1
+growth_stage = -1
+info = {
+"flower_name": "",
+"growth_time": 1.0,
+"rain_multiplier": 1.3,
+"stats": {
+"anger": -2,
+"contemplation": 0,
+"hope": 0,
+"joy": 2,
+"love": 0,
+"lust": 0,
+"patience": 0,
+"pride": 0,
+"relief": 0,
+"sorrow": 0,
+"trust": 0,
+"zeal": 1
+},
+"sun_multiplier": 1.5
+}

@@ -1,0 +1,34 @@
+[gd_scene load_steps=9 format=3 uid="uid://ckswypy8lfwbq"]
+
+[ext_resource type="Script" path="res://Scenes/GameManager/GameManager.gd" id="1_j82kq"]
+[ext_resource type="PackedScene" uid="uid://d3hqkt0vfcs0s" path="res://Scenes/Garden/garden.tscn" id="2_6txk5"]
+[ext_resource type="PackedScene" uid="uid://drc1bvw257jhr" path="res://Scenes/Player/player.tscn" id="2_v8tsa"]
+[ext_resource type="Script" path="res://Scenes/GameManager/Camera.gd" id="3_5exg0"]
+[ext_resource type="PackedScene" uid="uid://wpo3yfd4vej0" path="res://Scenes/Inventory/Inventory.tscn" id="4_oyq5w"]
+[ext_resource type="PackedScene" uid="uid://bi4rg6u25c7fi" path="res://Scenes/UIManager/GardenUI.tscn" id="6_42k4s"]
+[ext_resource type="PackedScene" uid="uid://kwe3112ujidu" path="res://Scenes/NPCController/Sandman.tscn" id="6_tqowy"]
+[ext_resource type="PackedScene" uid="uid://ct72ybvsior3c" path="res://Scenes/ShopGrid/shop_grid.tscn" id="7_iatum"]
+
+[node name="GameManager2" type="Node"]
+script = ExtResource("1_j82kq")
+
+[node name="Player" parent="." instance=ExtResource("2_v8tsa")]
+position = Vector2(276, 131)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+script = ExtResource("3_5exg0")
+
+[node name="Garden" parent="." instance=ExtResource("2_6txk5")]
+metadata/_edit_lock_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Inventory" parent="CanvasLayer" instance=ExtResource("4_oyq5w")]
+
+[node name="GardenUI" parent="CanvasLayer" instance=ExtResource("6_42k4s")]
+
+[node name="ShopGrid" parent="CanvasLayer" instance=ExtResource("7_iatum")]
+
+[node name="Sandman" parent="." instance=ExtResource("6_tqowy")]
+position = Vector2(361, 22)
+scale = Vector2(2, 2)

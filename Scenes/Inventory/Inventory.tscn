@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://wpo3yfd4vej0"]
+
+[ext_resource type="Script" path="res://Scenes/Inventory/Inventory.gd" id="1_if3np"]
+
+[node name="Inventory" type="Control"]
+layout_mode = 3
+anchor_left = 0.75
+anchor_top = 0.9
+anchor_right = 0.98
+anchor_bottom = 0.975
+offset_left = -0.399963
+offset_top = 0.271973
+offset_right = -0.399902
+offset_bottom = 0.200012
+script = ExtResource("1_if3np")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_direction = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.744
+anchor_bottom = 1.0
+offset_right = 0.316895
+offset_bottom = -0.320007
+grow_horizontal = 2
+grow_vertical = 2

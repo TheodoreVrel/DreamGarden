@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://cw37aubypcast"]
+
+[ext_resource type="Script" path="res://Scenes/Inventory/InventorySlot.gd" id="1_eu3oo"]
+[ext_resource type="Texture2D" uid="uid://bbq5yhpnhb0ar" path="res://Assets/Off-circle.png" id="1_wmm6u"]
+[ext_resource type="Script" path="res://Scenes/Inventory/TextureRectBox.gd" id="2_hyweb"]
+
+[node name="InventorySlot" type="VBoxContainer"]
+anchors_preset = -1
+anchor_right = 0.043
+anchor_bottom = 0.119
+offset_right = 29.464
+offset_bottom = -0.112
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_eu3oo")
+
+[node name="TextureRectBox" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_wmm6u")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("2_hyweb")
+
+[node name="TextureRectFlower" type="TextureRect" parent="TextureRectBox"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.367
+anchor_top = 0.269
+anchor_right = 0.633
+anchor_bottom = 0.723
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="resized" from="TextureRectBox" to="." method="_on_texture_rect_box_resized"]
+[connection signal="resized" from="TextureRectBox" to="TextureRectBox" method="_on_resized"]

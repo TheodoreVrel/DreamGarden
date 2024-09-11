@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://drc1bvw257jhr"]
+
+[ext_resource type="Script" path="res://Scenes/Player/Player.gd" id="1_twdbq"]
+[ext_resource type="Texture2D" uid="uid://bnld3st8fkwh6" path="res://Assets/icon.svg" id="2_28m7e"]
+[ext_resource type="Script" path="res://RayCast2D.gd" id="3_vq4e5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_alhqc"]
+radius = 24.0
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 1
+script = ExtResource("1_twdbq")
+speed = 210
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_alhqc")
+
+[node name="Pivot" type="Marker2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Pivot"]
+rotation = 1.5708
+scale = Vector2(0.455, 0.455)
+texture = ExtResource("2_28m7e")
+
+[node name="RayCast2D" type="RayCast2D" parent="Pivot"]
+position = Vector2(15, 0)
+target_position = Vector2(85, 0)
+collision_mask = 6
+hit_from_inside = true
+collide_with_areas = true
+script = ExtResource("3_vq4e5")
+
+[node name="Polygon2D" type="Polygon2D" parent="Pivot/RayCast2D"]
+visible = false
+polygon = PackedVector2Array(29, -1, 29, 1, 100, 0)
+
+[connection signal="collision_begin" from="Pivot/RayCast2D" to="." method="_on_ray_cast_2d_collision_begin"]
+[connection signal="collision_change" from="Pivot/RayCast2D" to="." method="_on_ray_cast_2d_collision_change"]
+[connection signal="collision_stop" from="Pivot/RayCast2D" to="." method="_on_ray_cast_2d_collision_stop"]
+[connection signal="entered" from="Pivot/RayCast2D" to="." method="_on_ray_cast_2d_entered"]
+[connection signal="exited" from="Pivot/RayCast2D" to="." method="_on_ray_cast_2d_exited"]

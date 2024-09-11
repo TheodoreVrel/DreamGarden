@@ -1,0 +1,188 @@
+[gd_scene load_steps=2 format=3 uid="uid://bi4rg6u25c7fi"]
+
+[ext_resource type="Script" path="res://Scenes/UIManager/UI.gd" id="1_73se3"]
+
+[node name="GardenUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_73se3")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75
+anchor_right = 1.0
+anchor_bottom = 0.6
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+
+[node name="StatNameVBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LoveLabel" type="Label" parent="HBoxContainer/StatNameVBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Love"
+horizontal_alignment = 2
+
+[node name="ReliefLabel" type="Label" parent="HBoxContainer/StatNameVBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Relief"
+horizontal_alignment = 2
+
+[node name="PrideLabel" type="Label" parent="HBoxContainer/StatNameVBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Pride"
+horizontal_alignment = 2
+
+[node name="LustLabel" type="Label" parent="HBoxContainer/StatNameVBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Lust"
+horizontal_alignment = 2
+
+[node name="PatienceLabel" type="Label" parent="HBoxContainer/StatNameVBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Patience"
+horizontal_alignment = 2
+
+[node name="JoyLabel" type="Label" parent="HBoxContainer/StatNameVBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Joy"
+horizontal_alignment = 2
+
+[node name="SorrowLabel" type="Label" parent="HBoxContainer/StatNameVBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Sorrow"
+horizontal_alignment = 2
+
+[node name="AngerLabel" type="Label" parent="HBoxContainer/StatNameVBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Anger"
+horizontal_alignment = 2
+
+[node name="TrustLabel" type="Label" parent="HBoxContainer/StatNameVBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Trust"
+horizontal_alignment = 2
+
+[node name="HopeLabel" type="Label" parent="HBoxContainer/StatNameVBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Hope"
+horizontal_alignment = 2
+
+[node name="ZealLabel" type="Label" parent="HBoxContainer/StatNameVBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Zeal"
+horizontal_alignment = 2
+
+[node name="ContemplationLabel" type="Label" parent="HBoxContainer/StatNameVBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Contemplation"
+horizontal_alignment = 2
+
+[node name="StatValueVBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LoveProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
+custom_minimum_size = Vector2(0, 30.335)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+value = 10.0
+
+[node name="ReliefProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
+custom_minimum_size = Vector2(0, 30.335)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+value = 10.0
+
+[node name="PrideProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
+custom_minimum_size = Vector2(0, 30.335)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+value = 10.0
+
+[node name="LustProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
+custom_minimum_size = Vector2(0, 30.335)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+value = 10.0
+
+[node name="PatienceProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
+custom_minimum_size = Vector2(0, 30.335)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+value = 10.0
+
+[node name="JoyProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
+custom_minimum_size = Vector2(0, 30.335)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+value = 10.0
+
+[node name="SorrowProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
+custom_minimum_size = Vector2(0, 30.335)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+value = 10.0
+
+[node name="AngerProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
+custom_minimum_size = Vector2(0, 30.335)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+value = 10.0
+
+[node name="TrustProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
+custom_minimum_size = Vector2(0, 30.335)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+value = 10.0
+
+[node name="HopeProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
+custom_minimum_size = Vector2(0, 30.335)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+value = 10.0
+
+[node name="ZealProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
+custom_minimum_size = Vector2(0, 30.335)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+value = 10.0
+
+[node name="ContemplationProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
+custom_minimum_size = Vector2(0, 30.335)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+rounded = true
+allow_lesser = true
