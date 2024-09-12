@@ -1,10 +1,10 @@
-extends GridContainer
+extends Control
 
 
 
 
 func _ready():
-	for slot in get_children():
+	for slot in find_child("Grid").get_children():
 		slot.connect("hovered", on_area_entered)
 
 

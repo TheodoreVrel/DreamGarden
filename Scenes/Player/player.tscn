@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" path="res://Scenes/Player/Player.gd" id="1_twdbq"]
 [ext_resource type="Texture2D" uid="uid://bnld3st8fkwh6" path="res://Assets/icon.svg" id="2_28m7e"]
-[ext_resource type="Script" path="res://RayCast2D.gd" id="3_vq4e5"]
+[ext_resource type="Script" path="res://Scenes/Player/RayCast2D.gd" id="3_vq4e5"]
+
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_alhqc"]
 radius = 24.0
