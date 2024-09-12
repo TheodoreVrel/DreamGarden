@@ -23,11 +23,12 @@ metadata/_edit_lock_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Inventory" parent="CanvasLayer" instance=ExtResource("4_oyq5w")]
-
 [node name="GardenUI" parent="CanvasLayer" instance=ExtResource("6_42k4s")]
+mouse_filter = 1
 
 [node name="ShopGrid" parent="CanvasLayer" instance=ExtResource("7_iatum")]
+
+[node name="Inventory" parent="CanvasLayer" instance=ExtResource("4_oyq5w")]
 
 [node name="Sandman" parent="." instance=ExtResource("6_tqowy")]
 position = Vector2(361, 22)

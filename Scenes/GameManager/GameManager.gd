@@ -5,6 +5,7 @@ extends Node
 @onready var inventory = $CanvasLayer/Inventory
 @onready var player = $Player
 @onready var npc = $Sandman
+@onready var shopUI = $CanvasLayer/ShopGrid
 
 
 
@@ -20,6 +21,7 @@ func _ready():
 	inventory.connect("new_seed_selected", on_new_seed_selected)
 	inventory.connect("seeds_emptied", on_seeds_emptied)
 	npc.connect("give_flower_to_player", on_seed_gain)
+	shopUI.connect("bought_flower", on_seed_buy)
 
 
 func on_cast_hit_object(obj: Node):
@@ -76,3 +78,7 @@ func on_garden_stats_updated(stats: Dictionary):
 	#for i in range(stats.size()):
 		#print("stat  ", i, "   ", stat_names[i], " ", stat_values[i])
 	gardenUI.update_all_stats(stat_values)
+
+func on_seed_buy(flower: Flower):
+	#separate in case I add an economy
+	on_seed_gain(flower, 1)

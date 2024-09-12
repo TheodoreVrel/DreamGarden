@@ -18,6 +18,7 @@ func select(from_right: bool):
 	size_flags_stretch_ratio = 2
 	$TextureRectBox.rotate_selected(from_right)
 	find_child("Label").position.y += 69
+	#print(self)
 	
 func deselect():
 	size = Vector2(50,50)
@@ -42,3 +43,27 @@ func _on_mouse_entered():
 	#print(self)
 func _on_mouse_exited():
 	hovered.emit(null)
+
+
+func add_flower_to_slot(flower: Flower):
+	slotted_flower = flower
+	slotted_flower.growth_stage = -1
+	seed_amount += 1
+	update_flower_texture_rect()
+	pass
+
+func remove_flower(all: bool = false):
+	#print("removing from ", container.get_child(selectedSlot).seed_amount)
+	if !all:
+		seed_amount -= 1
+		#print("removed 1")
+		if seed_amount == 0:
+			remove_all_flowers_from_slot()
+			#print("removed last")
+	else:
+		seed_amount = 0
+		remove_all_flowers_from_slot()
+		#print("removed all")
+func remove_all_flowers_from_slot():
+	slotted_flower = null
+	update_flower_texture_rect()
