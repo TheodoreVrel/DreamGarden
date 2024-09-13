@@ -31,9 +31,12 @@ func _ready():
 	#on_stat_changed($HBoxContainer/StatValueVBoxContainer/SorrowProgressBar, -12)
 
 
-func on_stat_changed(bar : ProgressBar, new_value: float):
-	update_value_dict(bar, new_value)
+func change_stat(bar : ProgressBar, new_value: float):
+	#update_value_dict(bar, new_value)
 	
+	
+	bar.value = new_value
+	print(bar, "   ",new_value,"    --- Updated the statbar")
 	#await get_tree().create_timer(0.1)
 	handle_stat_bar(bar)
 
@@ -42,20 +45,15 @@ func update_all_stats(new_stats : Array):
 	current_total = 0.0
 	var num = stat_values.get_child_count()
 	for i in range(num):
-		if new_stats[i] != 0:
-			#current_number_of_stats += 1
-			current_total += abs(new_stats[i])
-			#print("ZZZZZZZZZZZZZ  ", current_number_of_stats)
-	for i in range(num):
-		on_stat_changed(stat_values.get_child(i), new_stats[i])
+		change_stat(stat_values.get_child(i), new_stats[i])
 
 func handle_stat_bar(statBar : ProgressBar):
-	var i: float = values[get_dict_key(statBar)][2]
 	#if current_number_of_stats != 0:
-	statBar.value = (abs(i) / current_total) * 100
-	print(i, "   ", (abs(i) / current_total),"     ", (abs(i) / current_total) * 100)
-	if i < 0:
+	#statBar.value = i
+	#print(i, "   ","    --- Updated the statbar")
+	if statBar.value < 0:
 		change_stat_label(get_label_from_progress_bar(statBar), false)
+		statBar.value = abs(statBar.value)
 	else:
 		change_stat_label(get_label_from_progress_bar(statBar), true)
 	#print(statBar.value)
@@ -99,8 +97,8 @@ func get_dictionary_value(bar: ProgressBar, dict_value : int = -1) :
 	
 	return values.get(get_dict_key(bar))
 
-func update_value_dict(bar: ProgressBar, new_value: int):
-	var current_value : int = get_dictionary_value(bar, 2)
-	var new_total_value : int = new_value
-	values[get_dict_key(bar)][2]= new_total_value
-	#print(values)
+#func update_value_dict(bar: ProgressBar, new_value: int):
+	#var current_value : int = get_dictionary_value(bar, 2)
+	#var new_total_value : int = new_value
+	#values[get_dict_key(bar)][2]= new_total_value
+	##print(values)

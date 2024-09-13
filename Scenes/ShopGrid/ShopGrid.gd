@@ -10,7 +10,7 @@ signal bought_flower
 func _ready():
 	for slot in find_child("Grid").get_children():
 		slot.connect("hovered", on_area_entered)
-	add_flower_to_shop(shop_flower)
+	add_flower_to_shop(shop_flower, 5)
 
 func _process(delta):
 	if Input.is_action_just_released("left_click") and hovered_slot:
@@ -26,8 +26,8 @@ func clicked_on_slot():
 		hovered_slot.remove_flower()
 
 
-func add_flower_to_shop(flower : Flower):
-	get_first_empty_slot().add_flower_to_slot(flower)
+func add_flower_to_shop(flower : Flower, amount : int):
+	get_first_empty_slot().add_flower_to_slot(flower, amount)
 
 func get_first_empty_slot() :
 	for slot_int in range($Grid.get_child_count()):

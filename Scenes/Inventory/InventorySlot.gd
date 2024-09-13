@@ -45,10 +45,10 @@ func _on_mouse_exited():
 	hovered.emit(null)
 
 
-func add_flower_to_slot(flower: Flower):
+func add_flower_to_slot(flower: Flower, amount : int = 1):
 	slotted_flower = flower
 	slotted_flower.growth_stage = -1
-	seed_amount += 1
+	seed_amount += amount
 	update_flower_texture_rect()
 	pass
 

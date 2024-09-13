@@ -9,7 +9,12 @@ var garden_stats_total : Dictionary = {
 	"sorrow":0.0, "anger":0.0, "trust":0.0, "hope":0.0, "zeal":0.0, "contemplation": 0.0
 }
 
-var garden_stats_average : Dictionary = {
+#var garden_stats_average : Dictionary = {
+	#"love": 0.0, "relief": 0.0, "pride": 0.0, "lust": 0.0, "patience": 0.0, "joy": 0.0,
+	#"sorrow": 0.0, "anger": 0.0, "trust": 0.0, "hope": 0.0, "zeal": 0.0, "contemplation": 0.0
+#}
+
+var garden_stats_normalized : Dictionary = {
 	"love": 0.0, "relief": 0.0, "pride": 0.0, "lust": 0.0, "patience": 0.0, "joy": 0.0,
 	"sorrow": 0.0, "anger": 0.0, "trust": 0.0, "hope": 0.0, "zeal": 0.0, "contemplation": 0.0
 }
@@ -40,7 +45,16 @@ func plant_flower(flower: Flower, zone: PlantingZone):
 	zone.add_flower_to_zone(flower)
 	
 	planted_flowers += 1
-	
+
+func new_planting_zone(zone: PlantingZone):
+	zone.connect("growth_end", on_plant_in_zone_growth_end)
+	for current_zone in $PlantingZones.get_children():
+		if zone == current_zone:
+			return
+	$PlantingZones.add_child(zone)
+
+
+
 
 func on_plant_in_zone_growth_end():
 	await get_tree().create_timer(0.2)
@@ -50,23 +64,22 @@ func calculate_garden_stats():
 	for stat in garden_stats_total:
 		garden_stats_total[stat] = 0
 	
+	var total_stats : float = 0.0
+	
 	for zone in $PlantingZones.get_children():
 		var flower = zone.flower_in_zone
 		if flower:
 			print("Stat - ", flower.info["stats"])
 			for stat in flower.info["stats"]:
 				garden_stats_total[stat] += flower.info["stats"][stat]
-				print("total_______________________",garden_stats_total[stat])
-	for stat in garden_stats_average:
-		garden_stats_average[stat] = float(garden_stats_total[stat] / planted_flowers)
-	print(": Average : ", garden_stats_average)
+				total_stats += abs(flower.info["stats"][stat])
+				print("_______________________ total stats value updated : ", total_stats)
+	for stat in garden_stats_normalized:
+		
+		garden_stats_normalized[stat] = snappedf(float(garden_stats_total[stat] / total_stats) * 100.0, 0.01)
+		print("cheking operation - ", garden_stats_normalized[stat], " | ", garden_stats_total[stat], " ---- ", total_stats, "  [",float(garden_stats_total[stat] / total_stats) * 100.0, "]")
+	print(": Total stats : ",total_stats)
+	print(": Normalized : ", garden_stats_normalized)
 	print(": Total : ", garden_stats_total)
 	print(": Number of flowers :", planted_flowers)
-	stats_updated.emit(garden_stats_average)
-
-func new_planting_zone(zone: PlantingZone):
-	zone.connect("growth_end", on_plant_in_zone_growth_end)
-	for current_zone in $PlantingZones.get_children():
-		if zone == current_zone:
-			return
-	$PlantingZones.add_child(zone)
+	stats_updated.emit(garden_stats_normalized)
