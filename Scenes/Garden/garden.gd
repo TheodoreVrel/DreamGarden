@@ -1,6 +1,6 @@
 extends Node2D
 
-var planted_flowers: int = 0 #maybe redundant since planting zones will handle the flower info
+var planted_flowers: float = 0 #maybe redundant since planting zones will handle the flower info
 var garden_planting_zones: Array
 
 
@@ -43,7 +43,7 @@ func plant_flower(flower: Flower, zone: PlantingZone):
 	
 
 func on_plant_in_zone_growth_end():
-	await get_tree().create_timer(1)
+	await get_tree().create_timer(0.2)
 	calculate_garden_stats()
 
 func calculate_garden_stats():
@@ -53,13 +53,15 @@ func calculate_garden_stats():
 	for zone in $PlantingZones.get_children():
 		var flower = zone.flower_in_zone
 		if flower:
-			#print("============= ", flower.info["stats"])
+			print("Stat - ", flower.info["stats"])
 			for stat in flower.info["stats"]:
 				garden_stats_total[stat] += flower.info["stats"][stat]
-				#print("total_______________________",garden_stats_total[stat])
+				print("total_______________________",garden_stats_total[stat])
 	for stat in garden_stats_average:
-		garden_stats_average[stat] = garden_stats_total[stat] / planted_flowers
-	#print(garden_stats_average, " = ", garden_stats_total, " / ",planted_flowers)
+		garden_stats_average[stat] = float(garden_stats_total[stat] / planted_flowers)
+	print(": Average : ", garden_stats_average)
+	print(": Total : ", garden_stats_total)
+	print(": Number of flowers :", planted_flowers)
 	stats_updated.emit(garden_stats_average)
 
 func new_planting_zone(zone: PlantingZone):

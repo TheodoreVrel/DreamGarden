@@ -93,7 +93,7 @@ func flower_growth():
 		growth_timer.start()
 		print("timer started")
 	else:
-		print("growth end")
+		print("growth end, ", self)
 		growth_end.emit()
 
 func _on_growth_timer_timeout():
@@ -109,6 +109,3 @@ func update_flower_visuals(flower_sprite : Sprite2D, frame: int = -5):
 		#print(frame)
 	
 	#print(flower_sprite, "is updating?????  ", flower_sprite.frame)
-
-
-

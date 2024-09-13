@@ -106,83 +106,83 @@ size_flags_horizontal = 3
 custom_minimum_size = Vector2(0, 30.335)
 layout_mode = 2
 size_flags_horizontal = 3
-step = 1.0
+step = 0.1
 value = 10.0
 
 [node name="ReliefProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
 custom_minimum_size = Vector2(0, 30.335)
 layout_mode = 2
 size_flags_horizontal = 3
-step = 1.0
+step = 0.1
 value = 10.0
 
 [node name="PrideProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
 custom_minimum_size = Vector2(0, 30.335)
 layout_mode = 2
 size_flags_horizontal = 3
-step = 1.0
+step = 0.1
 value = 10.0
 
 [node name="LustProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
 custom_minimum_size = Vector2(0, 30.335)
 layout_mode = 2
 size_flags_horizontal = 3
-step = 1.0
+step = 0.1
 value = 10.0
 
 [node name="PatienceProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
 custom_minimum_size = Vector2(0, 30.335)
 layout_mode = 2
 size_flags_horizontal = 3
-step = 1.0
+step = 0.1
 value = 10.0
 
 [node name="JoyProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
 custom_minimum_size = Vector2(0, 30.335)
 layout_mode = 2
 size_flags_horizontal = 3
-step = 1.0
+step = 0.1
 value = 10.0
 
 [node name="SorrowProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
 custom_minimum_size = Vector2(0, 30.335)
 layout_mode = 2
 size_flags_horizontal = 3
-step = 1.0
+step = 0.1
 value = 10.0
 
 [node name="AngerProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
 custom_minimum_size = Vector2(0, 30.335)
 layout_mode = 2
 size_flags_horizontal = 3
-step = 1.0
+step = 0.1
 value = 10.0
 
 [node name="TrustProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
 custom_minimum_size = Vector2(0, 30.335)
 layout_mode = 2
 size_flags_horizontal = 3
-step = 1.0
+step = 0.1
 value = 10.0
 
 [node name="HopeProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
 custom_minimum_size = Vector2(0, 30.335)
 layout_mode = 2
 size_flags_horizontal = 3
-step = 1.0
+step = 0.1
 value = 10.0
 
 [node name="ZealProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
 custom_minimum_size = Vector2(0, 30.335)
 layout_mode = 2
 size_flags_horizontal = 3
-step = 1.0
+step = 0.1
 value = 10.0
 
 [node name="ContemplationProgressBar" type="ProgressBar" parent="HBoxContainer/StatValueVBoxContainer"]
 custom_minimum_size = Vector2(0, 30.335)
 layout_mode = 2
 size_flags_horizontal = 3
-step = 1.0
+step = 0.1
 rounded = true
 allow_lesser = true

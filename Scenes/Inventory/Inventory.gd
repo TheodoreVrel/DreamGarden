@@ -135,6 +135,6 @@ func swap_flowers(index1: int, index2: int):
 
 
 func on_inventory_slot_hovered(slot):
-	print("inventory slot to hover : ", slot)
+	#print("inventory slot to hover : ", slot)
 	hovered_slot = slot
-	print("slot now hovered = ", slot)
+	#print("slot now hovered = ", slot)
