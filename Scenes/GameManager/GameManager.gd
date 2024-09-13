@@ -80,5 +80,5 @@ func on_garden_stats_updated(stats: Dictionary):
 	gardenUI.update_all_stats(stat_values)
 
 func on_seed_buy(flower: Flower):
-	#separate in case I add an economy
+	#separate in case I add an economy (probably will to incentivise doing missions)
 	on_seed_gain(flower, 1)

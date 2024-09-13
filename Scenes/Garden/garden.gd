@@ -9,11 +9,6 @@ var garden_stats_total : Dictionary = {
 	"sorrow":0.0, "anger":0.0, "trust":0.0, "hope":0.0, "zeal":0.0, "contemplation": 0.0
 }
 
-#var garden_stats_average : Dictionary = {
-	#"love": 0.0, "relief": 0.0, "pride": 0.0, "lust": 0.0, "patience": 0.0, "joy": 0.0,
-	#"sorrow": 0.0, "anger": 0.0, "trust": 0.0, "hope": 0.0, "zeal": 0.0, "contemplation": 0.0
-#}
-
 var garden_stats_normalized : Dictionary = {
 	"love": 0.0, "relief": 0.0, "pride": 0.0, "lust": 0.0, "patience": 0.0, "joy": 0.0,
 	"sorrow": 0.0, "anger": 0.0, "trust": 0.0, "hope": 0.0, "zeal": 0.0, "contemplation": 0.0

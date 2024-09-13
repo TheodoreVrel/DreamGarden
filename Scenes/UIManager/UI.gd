@@ -7,18 +7,18 @@ extends Control
 var current_total : float = 0.0
 
 var values : Dictionary = {
-	0: ["Love", "Loneliness", 0.0], 
-	1: ["Relief", "Anxiety", 0.0], 
-	2: ["Pride", "Shame", 0.0],
-	3: ["Lust", "Frustration", 0.0],
-	4: ["Patience", "Annoyance", 0.0],
-	5: ["Joy", "Misery", 0.0],
-	6: ["Sorrow", "Numbness", 0.0],
-	7: ["Anger", "Suppression", 0.0],
-	8: ["Trust", "Doubt", 0.0],
-	9: ["Hope", "Despair", 0.0],
-	10: ["Zeal", "Boredom", 0.0],
-	11: ["Contemplation", "Stagnation", 0.0],
+	0: ["Love", "Loneliness"], 
+	1: ["Relief", "Anxiety"], 
+	2: ["Pride", "Shame"],
+	3: ["Lust", "Frustration"],
+	4: ["Patience", "Annoyance"],
+	5: ["Joy", "Misery"],
+	6: ["Sorrow", "Numbness"],
+	7: ["Anger", "Suppression"],
+	8: ["Trust", "Doubt"],
+	9: ["Hope", "Despair"],
+	10: ["Zeal", "Boredom"],
+	11: ["Contemplation", "Stagnation"],
 }
 
 func _ready():
