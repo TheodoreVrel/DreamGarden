@@ -1,4 +1,4 @@
-extends Node2D
+extends InteractiveObject
 class_name PlantingZone
 
 @onready var collision_polygon : CollisionPolygon2D = get_child(0).find_child("CollisionPolygon2D")
@@ -29,14 +29,7 @@ func _ready():
 		polygon.color = default_color
 	growth_timer.connect("timeout", _on_growth_timer_timeout)
 
-func zone_cast():
-	zone_interaction(zone_interaction_type.HOVERED)
 
-func zone_exit():
-	zone_interaction(zone_interaction_type.EXITED)
-
-
-enum zone_interaction_type{HOVERED, CLICKED,EXITED}
 func zone_interaction(interaction: zone_interaction_type):
 	match interaction:
 		zone_interaction_type.HOVERED:

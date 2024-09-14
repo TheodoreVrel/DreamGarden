@@ -2,7 +2,7 @@ extends Control
 
 
 var hovered_slot : InventorySlot
-@onready var shop_flower : Flower = $Flower
+#@onready var shop_flower : Flower = $Flower
 
 
 signal bought_flower
@@ -10,7 +10,7 @@ signal bought_flower
 func _ready():
 	for slot in find_child("Grid").get_children():
 		slot.connect("hovered", on_area_entered)
-	add_flower_to_shop(shop_flower, 5)
+	#add_flower_to_shop(shop_flower, 5)
 
 func _process(delta):
 	if Input.is_action_just_released("left_click") and hovered_slot:
@@ -25,6 +25,9 @@ func clicked_on_slot():
 		bought_flower.emit(hovered_slot.slotted_flower)
 		hovered_slot.remove_flower()
 
+func empty_shop():
+	for slot : InventorySlot in $Grid.get_children():
+		slot.remove_flower(true)
 
 func add_flower_to_shop(flower : Flower, amount : int):
 	get_first_empty_slot().add_flower_to_slot(flower, amount)

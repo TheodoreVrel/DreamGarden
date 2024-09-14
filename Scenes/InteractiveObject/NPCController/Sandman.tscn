@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://kwe3112ujidu"]
 
-[ext_resource type="Script" path="res://Scenes/NPCController/NPC.gd" id="1_snjig"]
+[ext_resource type="Script" path="res://Scenes/InteractiveObject/NPCController/NPC.gd" id="1_snjig"]
 [ext_resource type="Texture2D" uid="uid://cp7b0176agyai" path="res://Assets/flower sheet.png" id="2_p6bqw"]
 [ext_resource type="PackedScene" uid="uid://l68djswjsttx" path="res://Scenes/Flower/flower.tscn" id="3_garnp"]
 

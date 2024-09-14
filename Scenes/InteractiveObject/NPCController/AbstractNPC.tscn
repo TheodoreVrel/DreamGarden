@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ccy1cjljui3ms"]
 
 [ext_resource type="PackedScene" uid="uid://l68djswjsttx" path="res://Scenes/Flower/flower.tscn" id="1_01y00"]
-[ext_resource type="Script" path="res://Scenes/NPCController/NPC.gd" id="1_xvp5v"]
+[ext_resource type="Script" path="res://Scenes/InteractiveObject/NPCController/NPC.gd" id="1_xvp5v"]
 
 [node name="AbstractNpc" type="Node2D"]
 script = ExtResource("1_xvp5v")

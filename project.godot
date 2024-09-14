@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/GameManager/GameManager.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://Assets/icon.svg"
 
+[autoload]
+
+GlobalFlowersData="*res://Scenes/GameManager/global_flowers_data.gd"
+
 [input]
 
 move_up={

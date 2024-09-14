@@ -52,7 +52,7 @@ func new_planting_zone(zone: PlantingZone):
 
 
 func on_plant_in_zone_growth_end():
-	await get_tree().create_timer(0.2)
+	#await get_tree().create_timer(0.2)
 	calculate_garden_stats()
 
 func calculate_garden_stats():

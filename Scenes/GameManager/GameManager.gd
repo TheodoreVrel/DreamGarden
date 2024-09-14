@@ -5,9 +5,10 @@ extends Node
 @onready var inventory = $CanvasLayer/Inventory
 @onready var player = $Player
 @onready var npc = $Sandman
+@onready var shop = $Shop
 @onready var shopUI = $CanvasLayer/ShopGrid
 
-
+var packed_flower_scene : PackedScene = preload("res://Scenes/Flower/flower.tscn")
 
 var currently_cast_object: Node2D
 var currently_held_seed: Flower = null
@@ -21,8 +22,11 @@ func _ready():
 	inventory.connect("new_seed_selected", on_new_seed_selected)
 	inventory.connect("seeds_emptied", on_seeds_emptied)
 	npc.connect("give_flower_to_player", on_seed_gain)
+	shop.connect("open_shop", on_shop_open)
+	shop.connect("seed_stock_updated", on_seed_stock_update)
 	shopUI.connect("bought_flower", on_seed_buy)
-
+	
+	#print(shop.get_signal_connection_list("seed_stock_updated"))
 
 func on_cast_hit_object(obj: Node):
 	if obj.get_parent() is PlantingZone:
@@ -59,7 +63,6 @@ func on_interact():
 		print("discussion:")
 		currently_cast_object.interact_with()
 	elif currently_held_seed and currently_cast_object is PlantingZone:
-		
 		if !currently_cast_object.zone_full:
 			garden.plant_flower(currently_held_seed, currently_cast_object)
 			#.add_flower_to_zone()
@@ -82,3 +85,24 @@ func on_garden_stats_updated(stats: Dictionary):
 func on_seed_buy(flower: Flower):
 	#separate in case I add an economy (probably will to incentivise doing missions)
 	on_seed_gain(flower, 1)
+
+func on_shop_open(open: bool):
+	shopUI.visible = open
+	pass
+
+func on_seed_stock_update(stock: Array):
+	
+	shopUI.empty_shop()
+	
+	var new_seed : Flower = packed_flower_scene.instantiate()
+	print("Empty Seed : ", new_seed)
+	for seed in stock:
+		new_seed = seed
+		print("seed = ", new_seed)
+		shop.add_child(new_seed)
+		shopUI.add_flower_to_shop(new_seed, 10)
+
+
+func _on_shop_seed_stock_updated(stock):
+	print("???????????? This only works if manually linked")
+	pass # Replace with function body.

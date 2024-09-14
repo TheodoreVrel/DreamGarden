@@ -1,8 +1,12 @@
 extends Area2D
 class_name Flower
 
+
 var sprite_directory : String = "res://Assets/Prototypes/"
 @export var id: int
+
+@onready var seed_sprite : Texture2D = load(sprite_directory + str(id) + "_seed.png")
+@onready var plant_sprite : Texture2D = load(sprite_directory + str(id) + ".png")
 
 @export_range(-1, 3, 1) var growth_stage : int = 0
 var growing: bool
@@ -13,16 +17,14 @@ signal flower_grew
 var is_fusion : bool = false
 
 @export var info: Dictionary = {
-		"flower_name": "", "stats": 
-		{
+		"plant_name": "", 
 			"love": 0, "relief": 0, "pride": 0, "lust": 0, "patience": 0, "joy": 0,
-			"sorrow":0, "anger":0, "trust":0, "hope":0, "zeal":0, "contemplation":0
-		},
-		"growth_time": 5.0, "sun_multiplier": 1.5, "rain_multiplier": 1.3
+			"sorrow":0, "anger":0, "trust":0, "hope":0, "zeal":0, "contemplation":0,
+		"growth_time": 5.0, "sun_multiplier": 1.5, "water_needs": 1
 	}
 
 func _ready():
-	$Sprite2D.texture = load(sprite_directory + str(id) + ".png")
+	pass
 	#$Sprite2D.frame = growth_stage
 	#print($CycleTimer.is_inside_tree())
 	#$CycleTimer.wait_time = info.get("growth_time")/4 * 5
@@ -31,7 +33,60 @@ func _ready():
 		#$CycleTimer.wait_time = 5
 	
 
+func _init(new_id: int = id):
+	id = new_id
+	#print("¨ Initialization of the flower from data: id = ",id)
+	
+	initialize_all_stats_from_json()
+	#print(info)
+	#$Sprite2D.texture = load(sprite_directory + str(id) + ".png")
+	
+	#info["flower_name"] = "A"
+	#info["love"] = 0
+	#info["relief"] = 0
+	#info["pride"] = 0
+	#info["lust"] = 0
+	#info["patience"] = 0
+	#info["joy"] = 0
+	#info["sorrow"] = 0
+	#info["anger"] = 0
+	#info["trust"] = 0
+	#info["hope"] = 0
+	#info["zeal"] = 0
+	#info["contemplation"] = 0
+	#info["growth_time"] = 4
+	#info["sun_multiplier"] = 4
+	#info["water_needs"] = 2
+	
+	pass
+	
+func initialize_stat_from_json(stat_name, new_id: int = id):
+	var flower_data : float = 0
+	
+	#print("- initialize_stat_from_json()")
+	#print("- initializing stat ", stat_name, " for flower with id ", id, " from json")
+	#print("- Stat value is  ", GlobalFlowersData.data_array[new_id].get(stat_name))
+	#print("stat_name ", stat_name)
+	var stat_value = GlobalFlowersData.data_array[new_id].get(stat_name)
+	
+	#for flower in GlobalFlowersData.data_array:
+		#var stat_value1 = flower.get(stat_name)
+	#print(stat_name, " : ", stat_value)
+	initialize_stat(stat_name, stat_value)
+	pass
+func initialize_all_stats_from_json():
+	#print("/ initialize_all_stats_from_json()")
+	for stat in info:
+		#print("/ Iterating through all stats of the flower. Currently stat ", stat)
+		
+		initialize_stat_from_json(stat)
+		#print("/ Stat value = ", info.get(stat))
 
+func initialize_stat(stat, value):
+	#print("__________________________")
+	#print("° Setting stat ", stat, " to the value of ", value)
+	info[stat] = value
+	#print("° Stat ", stat, " is now of value ", info[stat])
 
 func generate_fused_flower(fuse_with: Flower):
 	pass
@@ -41,12 +96,6 @@ func generate_seeds():
 	#simple idea, is seeds in inventory = growth_stage -1.
 	#Not handled here, handled in garden
 	pass
-#func generate_held_flower(id: int):
-	#var temp_flower 
-	#Globals.held_flower = generic_flower.instantiate()
-	#Globals.held_flower.id = id
-	#print(Globals.held_flower)
-	#holding_flower = true
 
 
 
@@ -56,7 +105,7 @@ func grow():
 		#print("F????????????????????????")
 		growing = true
 		
-		print("growth stage : ", growth_stage)
+		#print("growth stage : ", growth_stage)
 		flower_grew.emit()
 
 #func flower_growth_cycle():

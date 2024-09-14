@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dwel875srxe3s"]
 
-[ext_resource type="Script" path="res://Scenes/Planting Zone/planting_zone.gd" id="1_2hfmb"]
-[ext_resource type="PackedScene" uid="uid://bko3yb2dj2i2i" path="res://Scenes/Planting Zone/area/planting_zone_abstract.tscn" id="1_pm0u3"]
+[ext_resource type="Script" path="res://Scenes/InteractiveObject/Planting Zone/planting_zone.gd" id="1_2hfmb"]
+[ext_resource type="PackedScene" uid="uid://bko3yb2dj2i2i" path="res://Scenes/InteractiveObject/Planting Zone/area/planting_zone_abstract.tscn" id="1_pm0u3"]
 
 [node name="PlantingZoneTriangle" type="Node2D"]
 scale = Vector2(7, 7)

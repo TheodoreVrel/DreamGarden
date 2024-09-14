@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ckswypy8lfwbq"]
+[gd_scene load_steps=10 format=3 uid="uid://ckswypy8lfwbq"]
 
 [ext_resource type="Script" path="res://Scenes/GameManager/GameManager.gd" id="1_j82kq"]
 [ext_resource type="PackedScene" uid="uid://d3hqkt0vfcs0s" path="res://Scenes/Garden/garden.tscn" id="2_6txk5"]
@@ -6,8 +6,9 @@
 [ext_resource type="Script" path="res://Scenes/GameManager/Camera.gd" id="3_5exg0"]
 [ext_resource type="PackedScene" uid="uid://wpo3yfd4vej0" path="res://Scenes/Inventory/Inventory.tscn" id="4_oyq5w"]
 [ext_resource type="PackedScene" uid="uid://bi4rg6u25c7fi" path="res://Scenes/UIManager/GardenUI.tscn" id="6_42k4s"]
-[ext_resource type="PackedScene" uid="uid://kwe3112ujidu" path="res://Scenes/NPCController/Sandman.tscn" id="6_tqowy"]
-[ext_resource type="PackedScene" uid="uid://ct72ybvsior3c" path="res://Scenes/ShopGrid/shop_grid.tscn" id="7_iatum"]
+[ext_resource type="PackedScene" uid="uid://kwe3112ujidu" path="res://Scenes/InteractiveObject/NPCController/Sandman.tscn" id="6_tqowy"]
+[ext_resource type="PackedScene" uid="uid://ct72ybvsior3c" path="res://Scenes/InteractiveObject/Shop/shop_grid.tscn" id="7_iatum"]
+[ext_resource type="PackedScene" uid="uid://2dqp5grdm86n" path="res://Scenes/InteractiveObject/Shop/Shop.tscn" id="9_a3ihh"]
 
 [node name="GameManager2" type="Node"]
 script = ExtResource("1_j82kq")
@@ -33,3 +34,7 @@ mouse_filter = 1
 [node name="Sandman" parent="." instance=ExtResource("6_tqowy")]
 position = Vector2(361, 22)
 scale = Vector2(2, 2)
+
+[node name="Shop" parent="." instance=ExtResource("9_a3ihh")]
+
+[connection signal="seed_stock_updated" from="Shop" to="." method="_on_shop_seed_stock_updated"]

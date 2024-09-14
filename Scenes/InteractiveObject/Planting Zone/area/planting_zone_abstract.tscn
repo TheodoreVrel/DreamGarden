@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bko3yb2dj2i2i"]
 
-[ext_resource type="Script" path="res://Scenes/Planting Zone/planting_zone.gd" id="1_vikap"]
+[ext_resource type="Script" path="res://Scenes/InteractiveObject/Planting Zone/planting_zone.gd" id="1_vikap"]
 
 [node name="Planting zone" type="Area2D"]
 collision_layer = 4
