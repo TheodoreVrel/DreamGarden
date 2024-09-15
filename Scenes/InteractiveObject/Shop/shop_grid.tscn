@@ -11,9 +11,21 @@ anchor_right = 0.408
 anchor_bottom = 0.85
 script = ExtResource("1_stsbo")
 
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -17.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "x"
+
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_top = 0.075
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -24,7 +36,7 @@ color = Color(0.419608, 0.768627, 1, 0.568627)
 [node name="Grid" type="GridContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.042
+anchor_top = 0.1
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2

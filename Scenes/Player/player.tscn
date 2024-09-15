@@ -4,12 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://bnld3st8fkwh6" path="res://Assets/icon.svg" id="2_28m7e"]
 [ext_resource type="Script" path="res://Scenes/Player/RayCast2D.gd" id="3_vq4e5"]
 
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_alhqc"]
 radius = 24.0
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
+collision_mask = 2
 script = ExtResource("1_twdbq")
 speed = 210
 
@@ -35,8 +35,5 @@ script = ExtResource("3_vq4e5")
 visible = false
 polygon = PackedVector2Array(29, -1, 29, 1, 100, 0)
 
-[connection signal="collision_begin" from="Pivot/RayCast2D" to="." method="_on_ray_cast_2d_collision_begin"]
-[connection signal="collision_change" from="Pivot/RayCast2D" to="." method="_on_ray_cast_2d_collision_change"]
-[connection signal="collision_stop" from="Pivot/RayCast2D" to="." method="_on_ray_cast_2d_collision_stop"]
 [connection signal="entered" from="Pivot/RayCast2D" to="." method="_on_ray_cast_2d_entered"]
 [connection signal="exited" from="Pivot/RayCast2D" to="." method="_on_ray_cast_2d_exited"]

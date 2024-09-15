@@ -7,13 +7,20 @@ var seed_stock : Array = []
 
 signal open_shop(bool)
 signal seed_stock_updated(stock: Array)
+signal test_stock_updated
 
 func interact_with():
+	#print("hello shop")
 	open_shop.emit(true)
 
 func _ready():
-	initialize_shop_flowers()
+	get_parent().connect("game_manager_ready", on_game_manager_ready)
+	#await get_tree().create_timer(0.35).timeout
 	
+
+func on_game_manager_ready():
+	initialize_shop_flowers()
+
 func initialize_shop_flowers():
 	var new_flower : Flower
 	for flower_id in starting_seed_stock:
@@ -23,6 +30,7 @@ func initialize_shop_flowers():
 	
 	print("emit seed stock : ", seed_stock)
 	seed_stock_updated.emit(seed_stock)
+	test_stock_updated.emit()
 
 #func update_seed_stock():
 	

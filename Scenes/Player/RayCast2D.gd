@@ -3,9 +3,9 @@ extends RayCast2D
 
 signal entered(new_collider)
 signal exited(old_collider)
-signal collision_begin(new_collider)
-signal collision_stop(old_collider)
-signal collision_change(old_collider, new_collider)
+#signal collision_begin(new_collider)
+#signal collision_stop(old_collider)
+#signal collision_change(old_collider, new_collider)
 
 
 
@@ -23,18 +23,14 @@ func _physics_process(_delta:float) -> void:
 		return
 
 	if old_collider == null:
-		emit_signal("collision_begin", new_collider)
+		#emit_signal("collision_begin", new_collider)
 		emit_signal("entered", new_collider)
 	elif new_collider == null:
-		emit_signal("collision_stop", old_collider)
+		#emit_signal("collision_stop", old_collider)
 		emit_signal("exited", old_collider)
 	else:
-		emit_signal("collision_change", old_collider, new_collider)
+		#emit_signal("collision_change", old_collider, new_collider)
 		emit_signal("exited", old_collider)
 		emit_signal("entered", new_collider)
 
 	old_collider = new_collider
-
-
-
-

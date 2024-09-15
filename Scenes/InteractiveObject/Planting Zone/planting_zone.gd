@@ -60,6 +60,7 @@ func clear_zone():
 	flower_sprite_zone = null
 
 func add_flower_visuals():
+	print("attempting to add visuals. Flower is ", flower_in_zone, " with sprite ", flower_in_zone.find_child("Sprite2D"))
 	flower_sprite_zone = find_child("FlowerSprites")
 	var flower_markers = find_child("Markers")
 	#print("r ", rotation)	

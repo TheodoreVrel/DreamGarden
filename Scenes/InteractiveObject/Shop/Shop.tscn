@@ -1,6 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://2dqp5grdm86n"]
+[gd_scene load_steps=4 format=3 uid="uid://2dqp5grdm86n"]
 
 [ext_resource type="Script" path="res://Scenes/InteractiveObject/Shop/shop_manager.gd" id="1_qwfca"]
+[ext_resource type="Texture2D" uid="uid://cp7b0176agyai" path="res://Assets/flower sheet.png" id="2_x11pv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8qedc"]
+radius = 9.0
+height = 54.0
 
 [node name="Shop" type="Node2D"]
 script = ExtResource("1_qwfca")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_x11pv")
+region_enabled = true
+region_rect = Rect2(101, 107, 58, 40)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+collision_layer = 2
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(0, 11)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_8qedc")

@@ -38,6 +38,8 @@ func _init(new_id: int = id):
 	#print("¨ Initialization of the flower from data: id = ",id)
 	
 	initialize_all_stats_from_json()
+	
+	#$Sprite2D.texture = 
 	#print(info)
 	#$Sprite2D.texture = load(sprite_directory + str(id) + ".png")
 	

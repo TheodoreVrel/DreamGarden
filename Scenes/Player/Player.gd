@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 # How fast the player moves in meters per second.
 @export var speed = 140
+var can_move : bool = true
+var can_interact : bool = true
 
 var generic_flower : PackedScene = preload("res://Scenes/Flower/flower.tscn")
 #var cast_zone : Node2D
@@ -11,18 +13,19 @@ var target_velocity = Vector2.ZERO
 signal cast_hit_object(object)
 signal cast_exit_object(object)
 
-signal try_plant
+#signal try_plant
 signal player_interact
 
 func _ready():
 	pass
 
 func _physics_process(delta):
+	if can_move:
 		move_player(delta)
 
 
 func _process(delta):
-	if Input.is_action_just_released("left_click"):
+	if Input.is_action_just_released("left_click") and can_interact:
 		interact()
 	if Input.is_action_just_released("ui_down"):
 		print("bbb")
