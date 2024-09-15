@@ -61,7 +61,7 @@ func clear_zone():
 	flower_sprite_zone = null
 
 func add_flower_visuals():
-	print("attempting to add visuals. Flower is ", flower_in_zone, " with sprite ", flower_in_zone.plant_texture)
+	#Debug.print("attempting to add visuals. Flower is ", flower_in_zone, " with sprite ", flower_in_zone.plant_texture)
 	flower_sprite_zone = find_child("FlowerSprites")
 	var flower_markers = find_child("Markers")
 	#print("r ", rotation)	
@@ -86,13 +86,13 @@ func flower_growth():
 		update_flower_visuals(flower_sprite, flower_in_zone.growth_stage)
 	if flower_in_zone.growth_stage < 3:
 		growth_timer.start()
-		print("timer started")
+		#print("timer started")
 	else:
 		print("growth end, ", self)
 		growth_end.emit()
 
 func _on_growth_timer_timeout():
-	print("timer done ", flower_in_zone.growth_stage)
+	#print("timer done ", flower_in_zone.growth_stage)
 	flower_in_zone.grow()
 
 func update_flower_visuals(flower_sprite : Sprite2D, frame: int = -5):

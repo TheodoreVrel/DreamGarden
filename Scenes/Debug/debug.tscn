@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3 uid="uid://daudjjun8vtno"]
+
+[ext_resource type="Script" path="res://Scenes/Debug/debug.gd" id="1_pcufr"]
+
+[node name="Debug" type="CanvasLayer"]
+layer = 128
+visible = false
+script = ExtResource("1_pcufr")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.125
+anchor_top = 0.01
+anchor_right = 0.75
+anchor_bottom = 0.6
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DebugConsole" type="Control" parent="Control/ScrollContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="ColorRect" type="ColorRect" parent="Control/ScrollContainer/DebugConsole"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.490196, 1, 1, 0.392157)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/ScrollContainer/DebugConsole"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+bbcode_enabled = true
