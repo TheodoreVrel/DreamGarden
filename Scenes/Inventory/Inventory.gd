@@ -9,6 +9,8 @@ var selected_slot_int : int = 0
 var selected_slot : InventorySlot
 var hovered_slot: InventorySlot
 
+var inventory_empty : bool = true
+
 @onready var container = $HBoxContainer
 
 signal new_seed_selected(seed : Flower)
@@ -33,26 +35,66 @@ func _process(delta):
 		click_select()
 		print("Clicked Slot: ", hovered_slot)
 
+
+
+func get_next_slot_int(current_slot_int : int, down : bool) -> int:
+	if down:
+		if current_slot_int == inventory_slot_amount - 1:
+			return 0
+		else: return current_slot_int + 1
+	else:
+		if current_slot_int == 0:
+			return inventory_slot_amount - 1
+		else: return current_slot_int - 1
+
 func scroll_select(down : bool):
 	deselect_slot_from_position(selected_slot_int)
-	if down:
-		if selected_slot_int == inventory_slot_amount - 1:
-			selected_slot_int = 0
-		else: selected_slot_int += 1
-		select_slot_from_position(selected_slot_int, true)
-	else:
-		if selected_slot_int == 0:
-			selected_slot_int = inventory_slot_amount - 1
-		else: selected_slot_int -= 1
-		select_slot_from_position(selected_slot_int, false)
+	#get_next_slot_int()
+	
+	select_next_slot_with_seed(down)
+	
+	#selected_slot_int = get_next_slot_int(selected_slot_int, down)
+	#if !selected_slot.slotted_flower and !inventory_empty:
+		#while !selected_slot.slotted_flower:
+			#deselect_slot_from_position(selected_slot_int)
+			#selected_slot_int += 1
+			#select_slot_from_position(get_next_slot_int(selected_slot_int, down), down)
+	#else:
+		#if selected_slot_int == 0:
+			#selected_slot_int = inventory_slot_amount - 1
+		#else: selected_slot_int -= 1
+		#select_slot_from_position(selected_slot_int, false)
 func click_select():
 	deselect_slot_from_position(selected_slot_int)
 	select_slot(hovered_slot)
 	selected_slot_int = get_slot_position(selected_slot)
+
+func select_next_slot_with_seed(down : bool):
+	if inventory_empty:
+		select_slot_from_position(get_next_slot_int(selected_slot_int, down), down)
+		return
 	
+	#var i : int
+	#if down: i = 1
+	#else: i = -1
+	
+	deselect_slot_from_position(selected_slot_int)
+	selected_slot_int = get_next_slot_int(selected_slot_int, down)
+	select_slot_from_position(selected_slot_int, down)
+	
+	while !selected_slot.slotted_flower:
+		deselect_slot_from_position(selected_slot_int)
+		selected_slot_int = get_next_slot_int(selected_slot_int, down)
+		select_slot_from_position(selected_slot_int, down)
+	#else:
+		#while !selected_slot.slotted_flower:
+			#deselect_slot_from_position(selected_slot_int)
+			#selected_slot_int -= 1
+			#select_slot_from_position(get_next_slot_int(selected_slot_int, down), down)
 
 func select_slot_from_position(slot: int, from_right: bool):
 	select_slot(container.get_child(slot), from_right)
+	selected_slot_int = slot
 	pass
 func select_slot(slot: InventorySlot, from_right: bool = true):
 	slot.select(from_right)
@@ -94,6 +136,8 @@ func add_flower(flower: Flower, amount: int):
 	
 	if empty_slot.currently_selected:
 		new_seed_selected.emit(flower)
+	
+	inventory_empty = false
 
 func get_first_empty_slot() :
 	for slot in range(inventory_slot_amount):
@@ -122,10 +166,18 @@ func remove_flower(all: bool = false):
 	set_slot_amount(container.get_child(selected_slot_int))
 	if container.get_child(selected_slot_int).seed_amount == 0:
 		seeds_emptied.emit()
-	
+		check_inventory_empty()
+
 func remove_all_flowers_from_slot(slot: int):
 	container.get_child(selected_slot_int).remove_all_flowers_from_slot()
-	
+	check_inventory_empty()
+
+func check_inventory_empty():
+	for slot in container.get_children():
+		if slot.slotted_flower:
+			inventory_empty = false
+			return
+	inventory_empty = true
 
 func get_selected_flower():
 	return container.get_child(selected_slot_int).slotted_flower

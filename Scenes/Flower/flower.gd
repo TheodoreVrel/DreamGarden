@@ -1,12 +1,12 @@
-extends Area2D
+extends Node2D
 class_name Flower
 
 
 var sprite_directory : String = "res://Assets/Prototypes/"
 @export var id: int
 
-@onready var seed_sprite : Texture2D = load(sprite_directory + str(id) + "_seed.png")
-@onready var plant_sprite : Texture2D = load(sprite_directory + str(id) + ".png")
+var seed_texture : Texture2D #= load(sprite_directory + str(id) + "_seed.png")
+var plant_texture : Texture2D #= load(sprite_directory + str(id) + ".png")
 
 @export_range(-1, 3, 1) var growth_stage : int = 0
 var growing: bool
@@ -24,6 +24,7 @@ var is_fusion : bool = false
 	}
 
 func _ready():
+	#print("flower ", self, " exists with textures : ", seed_texture, " and ", plant_texture)
 	pass
 	#$Sprite2D.frame = growth_stage
 	#print($CycleTimer.is_inside_tree())
@@ -39,7 +40,9 @@ func _init(new_id: int = id):
 	
 	initialize_all_stats_from_json()
 	
-	#$Sprite2D.texture = 
+	seed_texture = load(sprite_directory + str(id) + "_seed.png")
+	plant_texture = load(sprite_directory + str(id) + ".png")
+	#print("plant texture = ", plant_texture)
 	#print(info)
 	#$Sprite2D.texture = load(sprite_directory + str(id) + ".png")
 	
@@ -119,3 +122,31 @@ func grow():
 	#if growth_stage != 3:
 		#flower_growth_cycle()
 		#print("+1 (", growth_stage, ")")
+func get_flower_seed_sprite() -> Sprite2D:
+	var seed_sprite = Sprite2D.new() 
+	
+	seed_sprite.texture = seed_texture
+	return seed_sprite
+	
+func get_flower_plant_sprite() -> Sprite2D:
+	var flower_sprite = Sprite2D.new()
+	
+	flower_sprite.offset.y = -2
+	flower_sprite.hframes = 4
+	flower_sprite.region_enabled = true
+	flower_sprite.set_region_rect(Rect2(0, 0, 16, 6))
+	flower_sprite.scale = Vector2(4, 4)
+	flower_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	
+	flower_sprite.texture = load(sprite_directory + str(id) + ".png")
+	return flower_sprite
+
+func get_flower_stats_dict() -> Dictionary:
+	var stat_dict : Dictionary 
+	if growth_stage == 3:
+		stat_dict = info
+	stat_dict.erase("plant_name")
+	stat_dict.erase("sun_multiplier")
+	stat_dict.erase("growth_time")
+	stat_dict.erase("water_needs")
+	return stat_dict

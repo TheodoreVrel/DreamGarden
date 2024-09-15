@@ -36,7 +36,7 @@ func change_stat(bar : ProgressBar, new_value: float):
 	
 	
 	bar.value = new_value
-	print(bar, "   ",new_value,"    --- Updated the statbar")
+	#print(bar, "   ",new_value,"    --- Updated the statbar")
 	#await get_tree().create_timer(0.1)
 	handle_stat_bar(bar)
 

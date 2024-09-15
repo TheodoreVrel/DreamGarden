@@ -35,6 +35,7 @@ func zone_interaction(interaction: zone_interaction_type):
 		zone_interaction_type.HOVERED:
 			polygon.color = hover_color
 		zone_interaction_type.EXITED:
+			#print("exited")
 			polygon.color = default_color
 		zone_interaction_type.CLICKED:
 			polygon.color = click_color
@@ -60,13 +61,13 @@ func clear_zone():
 	flower_sprite_zone = null
 
 func add_flower_visuals():
-	print("attempting to add visuals. Flower is ", flower_in_zone, " with sprite ", flower_in_zone.find_child("Sprite2D"))
+	print("attempting to add visuals. Flower is ", flower_in_zone, " with sprite ", flower_in_zone.plant_texture)
 	flower_sprite_zone = find_child("FlowerSprites")
 	var flower_markers = find_child("Markers")
 	#print("r ", rotation)	
 	if flower_sprite_zone.get_child_count() == 0:
 		for marker in flower_markers.get_children():
-			var flower_sprite : Sprite2D = flower_in_zone.find_child("Sprite2D").duplicate()
+			var flower_sprite : Sprite2D = flower_in_zone.get_flower_plant_sprite()
 			#new_flower.grow()
 			flower_sprite.position = marker.position * 7.5
 			#flower_sprite.position.y -= 5

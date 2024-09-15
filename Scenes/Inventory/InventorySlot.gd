@@ -33,7 +33,8 @@ func _on_texture_rect_box_resized():
 func update_flower_texture_rect():
 	if slotted_flower:
 		var flower_id = slotted_flower.id
-		flower_texture_rect.texture = slotted_flower.seed_sprite #load(sprite_directory + str(flower_id) + "_seed.png")
+		print("adding texture for seed : ", slotted_flower, " - texture = ", slotted_flower.seed_texture)
+		flower_texture_rect.texture = slotted_flower.seed_texture #load(sprite_directory + str(flower_id) + "_seed.png")
 	else:
 		flower_texture_rect.texture = null
 

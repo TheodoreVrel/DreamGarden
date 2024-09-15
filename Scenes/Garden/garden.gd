@@ -64,17 +64,25 @@ func calculate_garden_stats():
 	for zone in $PlantingZones.get_children():
 		var flower = zone.flower_in_zone
 		if flower:
-			print("Stat - ", flower.info["stats"])
-			for stat in flower.info["stats"]:
-				garden_stats_total[stat] += flower.info["stats"][stat]
-				total_stats += abs(flower.info["stats"][stat])
-				print("_______________________ total stats value updated : ", total_stats)
+			var flower_stats_dict = flower.get_flower_stats_dict()
+			print(flower.get("plant_name"), " : Stat - ", flower_stats_dict)
+			for stat in flower_stats_dict:
+				garden_stats_total[stat] += flower_stats_dict[stat]
+				
+				print("stat ", stat, " updated to ", garden_stats_total[stat])
+				
+	
+	for stat in garden_stats_total:
+		total_stats += abs(garden_stats_total[stat])
+		print("_______________________ total stats value updated : ", total_stats)
+	
+	
 	for stat in garden_stats_normalized:
 		
-		garden_stats_normalized[stat] = snappedf(float(garden_stats_total[stat] / total_stats) * 100.0, 0.01)
-		print("cheking operation - ", garden_stats_normalized[stat], " | ", garden_stats_total[stat], " ---- ", total_stats, "  [",float(garden_stats_total[stat] / total_stats) * 100.0, "]")
-	print(": Total stats : ",total_stats)
-	print(": Normalized : ", garden_stats_normalized)
-	print(": Total : ", garden_stats_total)
-	print(": Number of flowers :", planted_flowers)
+		garden_stats_normalized[stat] = snappedf(float(garden_stats_total[stat] / total_stats) * 100.0, 0.0001)
+		#print("cheking operation - ", garden_stats_normalized[stat], " | ", garden_stats_total[stat], " ---- ", total_stats, "  [",float(garden_stats_total[stat] / total_stats) * 100.0, "]")
+	#print(": Total stats : ",total_stats)
+	#print(": Normalized : ", garden_stats_normalized)
+	#print(": Total : ", garden_stats_total)
+	#print(": Number of flowers :", planted_flowers)
 	stats_updated.emit(garden_stats_normalized)

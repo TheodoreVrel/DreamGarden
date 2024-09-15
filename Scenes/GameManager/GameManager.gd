@@ -8,7 +8,7 @@ extends Node
 @onready var shop = $Shop
 @onready var shopUI = $CanvasLayer/ShopGrid
 
-var packed_flower_scene : PackedScene = preload("res://Scenes/Flower/flower.tscn")
+#var packed_flower_scene : PackedScene = preload("res://Scenes/Flower/flower.tscn")
 
 var currently_cast_object: Node2D
 var currently_held_seed: Flower = null
@@ -53,7 +53,7 @@ func on_cast_hit_object(obj: Node):
 
 func on_cast_exit_object(obj):
 	if obj:
-		if obj.has_method("zone_exit"):
+		if obj.get_parent().has_method("zone_exit"):
 			obj.get_parent().zone_exit()
 		currently_cast_object = null
 	#if obj.get_parent() is PlantingZone:
@@ -120,12 +120,11 @@ func on_seed_stock_updated(stock: Array):
 	print("seed stock received: ", stock)
 	shopUI.empty_shop()
 	
-	var new_seed : Flower = packed_flower_scene.instantiate()
+	var new_seed : Flower 
 	print("Empty Seed : ", new_seed)
 	for seed in stock:
 		new_seed = seed
 		print("seed = ", new_seed)
-		shop.add_child(new_seed)
 		shopUI.add_flower_to_shop(new_seed, 10)
 
 func _on_shop_seed_stock_updated(stock):

@@ -8,6 +8,7 @@ func zone_cast():
 
 func zone_exit():
 	zone_interaction(zone_interaction_type.EXITED)
+	#print("interaction : exited")
 
 
 func interact_with():
