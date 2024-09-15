@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ckswypy8lfwbq"]
+[gd_scene load_steps=10 format=3 uid="uid://ckswypy8lfwbq"]
 
 [ext_resource type="Script" path="res://Scenes/GameManager/GameManager.gd" id="1_j82kq"]
 [ext_resource type="PackedScene" uid="uid://d3hqkt0vfcs0s" path="res://Scenes/Garden/garden.tscn" id="2_6txk5"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bi4rg6u25c7fi" path="res://Scenes/UIManager/GardenUI.tscn" id="6_42k4s"]
 [ext_resource type="PackedScene" uid="uid://ct72ybvsior3c" path="res://Scenes/InteractiveObject/Shop/shop_grid.tscn" id="7_iatum"]
 [ext_resource type="PackedScene" uid="uid://2dqp5grdm86n" path="res://Scenes/InteractiveObject/Shop/Shop.tscn" id="9_a3ihh"]
+[ext_resource type="PackedScene" uid="uid://cq60es5c30uwb" path="res://Scenes/UIManager/flower_tooltip.tscn" id="9_urf32"]
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_j82kq")
@@ -36,3 +37,7 @@ visible = false
 
 [node name="Inventory" parent="CanvasLayer" instance=ExtResource("4_oyq5w")]
 metadata/_edit_use_anchors_ = true
+
+[node name="flower_tooltip" parent="CanvasLayer" instance=ExtResource("9_urf32")]
+visible = false
+scale = Vector2(2.36, 2.36)

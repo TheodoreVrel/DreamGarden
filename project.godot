@@ -20,6 +20,10 @@ config/icon="res://Assets/icon.svg"
 GlobalFlowersData="*res://Scenes/GameManager/global_flowers_data.gd"
 Debug="*res://Scenes/Debug/debug.tscn"
 
+[display]
+
+window/size/resizable=false
+
 [input]
 
 move_up={

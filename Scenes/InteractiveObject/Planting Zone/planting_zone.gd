@@ -4,6 +4,7 @@ class_name PlantingZone
 @onready var collision_polygon : CollisionPolygon2D = get_child(0).find_child("CollisionPolygon2D")
 @onready var polygon : Polygon2D = find_child("Polygon2D")
 @onready var growth_timer : Timer = find_child("GrowthTimer")
+@onready var area : Area2D = find_child("PlantingZone")
 
 var default_color : Color = Color.CORNFLOWER_BLUE
 var hover_color : Color = Color.BISQUE
@@ -17,7 +18,7 @@ var zone_full : bool = false
 var flower_sprite_zone
 
 signal growth_end
-
+signal zone_hovered
 
 func _ready():
 	#var player = get_tree().current_scene.find_child("Player", true)
@@ -28,6 +29,10 @@ func _ready():
 	if polygon:
 		polygon.color = default_color
 	growth_timer.connect("timeout", _on_growth_timer_timeout)
+	
+	area.connect("mouse_entered", on_mouse_entered)
+	area.connect("mouse_exited", on_mouse_exited)
+	
 
 
 func zone_interaction(interaction: zone_interaction_type):
@@ -104,3 +109,9 @@ func update_flower_visuals(flower_sprite : Sprite2D, frame: int = -5):
 		#print(frame)
 	
 	#print(flower_sprite, "is updating?????  ", flower_sprite.frame)
+
+
+func on_mouse_entered():
+	zone_hovered.emit(self)
+func on_mouse_exited():
+	zone_hovered.emit(null)

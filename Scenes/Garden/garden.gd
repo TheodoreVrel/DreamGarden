@@ -17,6 +17,7 @@ var garden_stats_normalized : Dictionary = {
 
 signal seed_harvested(flower: Flower)
 signal stats_updated(stats_average: Dictionary)
+signal zone_hovered(zone: PlantingZone)
 
 func _ready():
 	for zone in $PlantingZones.get_children():
@@ -43,12 +44,14 @@ func plant_flower(flower: Flower, zone: PlantingZone):
 
 func new_planting_zone(zone: PlantingZone):
 	zone.connect("growth_end", on_plant_in_zone_growth_end)
+	zone.connect("zone_hovered", on_zone_hovered)
 	for current_zone in $PlantingZones.get_children():
 		if zone == current_zone:
 			return
 	$PlantingZones.add_child(zone)
 
-
+func on_zone_hovered(zone):
+	zone_hovered.emit(zone)
 
 
 func on_plant_in_zone_growth_end():

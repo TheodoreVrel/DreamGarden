@@ -25,10 +25,10 @@ func initialize_shop_flowers():
 	var new_flower : Flower
 	for flower_id in starting_seed_stock:
 		new_flower = Flower.new(flower_id)
-		print("---------------------   ", new_flower.info.get("plant_name"))
+		#print("---------------------   ", new_flower.info.get("plant_name"))
 		seed_stock.append(new_flower)
 	
-	print("emit seed stock : ", seed_stock)
+	#print("emit seed stock : ", seed_stock)
 	seed_stock_updated.emit(seed_stock)
 	test_stock_updated.emit()
 

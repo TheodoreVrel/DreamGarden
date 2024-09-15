@@ -7,6 +7,7 @@ extends Node
 #@onready var npc = $Sandman
 @onready var shop = $Shop
 @onready var shopUI = $CanvasLayer/ShopGrid
+@onready var flower_tooltip = $CanvasLayer/flower_tooltip
 
 #var packed_flower_scene : PackedScene = preload("res://Scenes/Flower/flower.tscn")
 
@@ -19,6 +20,7 @@ signal game_manager_ready
 func _ready():
 	garden.connect("seed_harvested", on_seed_gain)
 	garden.connect("stats_updated", on_garden_stats_updated)
+	garden.connect("zone_hovered", on_planting_zone_hovered)
 	player.connect("player_interact", on_interact)
 	player.connect("cast_hit_object", on_cast_hit_object)
 	player.connect("cast_exit_object", on_cast_exit_object)
@@ -65,8 +67,15 @@ func on_cast_exit_object(obj):
 		##print("cast exit ", obj)
 		#currently_cast_object = null
 
-
-
+func on_planting_zone_hovered(zone):
+	if zone and zone.flower_in_zone:
+		#print("zone data1 : ", zone.flower_in_zone)
+		Debug.print("zone data2 : ", zone.flower_in_zone.get_relevant_flower_info())
+		flower_tooltip.update_tooltip(zone.flower_in_zone.get_relevant_flower_info())
+		flower_tooltip.show_tooltip(true)
+		pass
+	elif flower_tooltip.visible:
+		flower_tooltip.show_tooltip(false)
 
 func on_new_seed_selected(flower_seed: Flower):
 	currently_held_seed = flower_seed
@@ -117,16 +126,12 @@ func on_shop_close():
 	player.can_interact = true
 
 func on_seed_stock_updated(stock: Array):
-	print("seed stock received: ", stock)
+	#print("seed stock received: ", stock)
 	shopUI.empty_shop()
 	
 	var new_seed : Flower 
-	print("Empty Seed : ", new_seed)
+	#print("Empty Seed : ", new_seed)
 	for seed in stock:
 		new_seed = seed
-		print("seed = ", new_seed)
+		#print("seed = ", new_seed)
 		shopUI.add_flower_to_shop(new_seed, 10)
-
-func _on_shop_seed_stock_updated(stock):
-	print("???????????? This only works if manually linked")
-	pass # Replace with function body.

@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://cq60es5c30uwb"]
+
+[ext_resource type="Script" path="res://Scenes/UIManager/flower_tooltip.gd" id="1_3aki8"]
+
+[node name="flower_tooltip" type="Control"]
+layout_mode = 3
+anchor_right = 0.078
+anchor_bottom = 0.11
+offset_right = 0.143997
+offset_bottom = -0.280006
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3aki8")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 245.0
+offset_bottom = 138.0
+scale = Vector2(0.35, 0.35)
+bbcode_enabled = true
+text = "[color=black][b][u]Rose[/u][/b]
+[b]Love[/b] : 3
+[b]Lust[/b] : 3
+[b]Growth Time[/b] : 12 min
+[b]Sun needs[/b] : fine in the shade
+[b]Water needs[/b] : moderate[/color]"
+fit_content = true

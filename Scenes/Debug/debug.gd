@@ -10,8 +10,26 @@ func _process(delta):
 		show_console()
 
 func print(variant, v1 = "", v2 = "", v3 = "", v4 = "", v5 = "", v6 = "", v7 = "", v8 = "", v9 = ""):
+	var args : Array
+	args.append(variant)
+	args.append(v1)
+	args.append(v2)
+	args.append(v3)
+	args.append(v4)
+	args.append(v5)
+	args.append(v6)
+	args.append(v7)
+	args.append(v8)
+	args.append(v9)
+	
+	#for v in args:
+		#if v == null:
+			#v = ""
+		
 	console.text += "\n"
-	console.text += str(variant) + str(v1) + str(v2) + str(v3) + str(v4) + str(v5) + str(v6) + str(v7) + str(v8) + str(v9)
+	for va in args:
+		console.text += str(va)
+	#variant) + str(v1) + str(v2) + str(v3) + str(v4) + str(v5) + str(v6) + str(v7) + str(v8) + str(v9)
 
 func show_console():
 	visible = !visible

@@ -4,7 +4,6 @@
 
 [node name="Debug" type="CanvasLayer"]
 layer = 128
-visible = false
 script = ExtResource("1_pcufr")
 
 [node name="Control" type="Control" parent="."]
@@ -14,23 +13,25 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.125
+anchor_left = 0.2
 anchor_top = 0.01
 anchor_right = 0.75
 anchor_bottom = 0.6
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="DebugConsole" type="Control" parent="Control/ScrollContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="Control/ScrollContainer/DebugConsole"]
 layout_mode = 1

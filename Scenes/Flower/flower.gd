@@ -42,6 +42,8 @@ func _init(new_id: int = id):
 	
 	seed_texture = load(sprite_directory + str(id) + "_seed.png")
 	plant_texture = load(sprite_directory + str(id) + ".png")
+	
+	#Debug.print(get_relevant_flower_info())
 	#print("plant texture = ", plant_texture)
 	#print(info)
 	#$Sprite2D.texture = load(sprite_directory + str(id) + ".png")
@@ -144,9 +146,24 @@ func get_flower_plant_sprite() -> Sprite2D:
 func get_flower_stats_dict() -> Dictionary:
 	var stat_dict : Dictionary 
 	if growth_stage == 3:
-		stat_dict = info
+		stat_dict = info.duplicate()
 	stat_dict.erase("plant_name")
 	stat_dict.erase("sun_multiplier")
 	stat_dict.erase("growth_time")
 	stat_dict.erase("water_needs")
 	return stat_dict
+
+func get_relevant_flower_info() -> Dictionary:
+	var stat_dict_1 : Dictionary 
+	stat_dict_1 = info
+	
+	var to_remove: Array
+	for data_point in info:
+		#print(data_point, "   ")
+		if str(stat_dict_1.get(data_point)) == "0":
+			to_remove.append(data_point)
+		
+	for i in to_remove:
+		stat_dict_1.erase(i)
+	#print("-------------------", stat_dict)
+	return stat_dict_1
