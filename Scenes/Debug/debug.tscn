@@ -4,6 +4,7 @@
 
 [node name="Debug" type="CanvasLayer"]
 layer = 128
+visible = false
 script = ExtResource("1_pcufr")
 
 [node name="Control" type="Control" parent="."]

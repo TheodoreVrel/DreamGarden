@@ -17,6 +17,8 @@ var zone_full : bool = false
 
 var flower_sprite_zone
 
+var growth_multipler: int = 4
+
 signal growth_end
 signal zone_hovered
 
@@ -51,12 +53,14 @@ func add_flower_to_zone(flower: Flower):
 	flower.growth_stage = 0
 	if !flower_in_zone:
 		flower_in_zone = flower.duplicate()
+		flower_in_zone.connect("flower_grew", flower_growth)
+		add_flower_visuals()
+		
 	elif !flower_in_zone.is_fusion and flower_in_zone.growth_stage == 0:
 		flower_in_zone.generate_fused_flower(flower)
 		zone_full = true
 	
-	flower_in_zone.connect("flower_grew", flower_growth)
-	add_flower_visuals()
+	
 	handle_flower_growth_timer()
 	print("-------------- Added flower with growth stage ", flower_in_zone.growth_stage)
 
@@ -82,7 +86,9 @@ func add_flower_visuals():
 			flower_sprite_zone.add_child(flower_sprite)
 
 func handle_flower_growth_timer():
-	growth_timer.wait_time = flower_in_zone.info.get("growth_time")/4 * 4
+	if !growth_timer.is_stopped():
+		growth_timer.stop()
+	growth_timer.wait_time = flower_in_zone.info.get("growth_time")/4 * growth_multipler
 	growth_timer.one_shot = true
 	flower_growth()
 

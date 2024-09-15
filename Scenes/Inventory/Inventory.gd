@@ -16,6 +16,8 @@ var inventory_empty : bool = true
 signal new_seed_selected(seed : Flower)
 signal seeds_emptied
 
+signal hovered_a_slot(slot)
+
 func _ready():
 	
 	for slot in range(inventory_slot_amount):
@@ -189,4 +191,5 @@ func swap_flowers(index1: int, index2: int):
 func on_inventory_slot_hovered(slot):
 	#print("inventory slot to hover : ", slot)
 	hovered_slot = slot
+	hovered_a_slot.emit(hovered_slot)
 	#print("slot now hovered = ", slot)

@@ -65,8 +65,8 @@ func calculate_garden_stats():
 	var total_stats : float = 0.0
 	
 	for zone in $PlantingZones.get_children():
-		var flower = zone.flower_in_zone
-		if flower:
+		var flower : Flower = zone.flower_in_zone
+		if flower and flower.growth_stage == 3:
 			var flower_stats_dict = flower.get_flower_stats_dict()
 			print(flower.get("plant_name"), " : Stat - ", flower_stats_dict)
 			for stat in flower_stats_dict:

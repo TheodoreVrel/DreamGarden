@@ -26,6 +26,7 @@ func _ready():
 	player.connect("cast_exit_object", on_cast_exit_object)
 	inventory.connect("new_seed_selected", on_new_seed_selected)
 	inventory.connect("seeds_emptied", on_seeds_emptied)
+	inventory.connect("hovered_a_slot", on_slot_hovered)
 	#npc.connect("give_flower_to_player", on_seed_gain)
 	shop.connect("open_shop", on_shop_open)
 	shop.connect("seed_stock_updated", on_seed_stock_updated)
@@ -76,6 +77,15 @@ func on_planting_zone_hovered(zone):
 		pass
 	elif flower_tooltip.visible:
 		flower_tooltip.show_tooltip(false)
+
+func on_slot_hovered(slot : InventorySlot):
+	if slot and slot.slotted_flower:
+		flower_tooltip.update_tooltip(slot.slotted_flower.get_relevant_flower_info())
+		flower_tooltip.show_tooltip(true)
+		pass
+	elif flower_tooltip.visible:
+		flower_tooltip.show_tooltip(false)
+
 
 func on_new_seed_selected(flower_seed: Flower):
 	currently_held_seed = flower_seed

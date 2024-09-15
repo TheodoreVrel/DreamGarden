@@ -42,6 +42,9 @@ func _init(new_id: int = id):
 	
 	seed_texture = load(sprite_directory + str(id) + "_seed.png")
 	plant_texture = load(sprite_directory + str(id) + ".png")
+	if !seed_texture:
+		seed_texture = load(sprite_directory + "0_seed.png")
+		plant_texture = load(sprite_directory + "0.png")
 	
 	#Debug.print(get_relevant_flower_info())
 	#print("plant texture = ", plant_texture)
@@ -96,8 +99,53 @@ func initialize_stat(stat, value):
 	#print("° Stat ", stat, " is now of value ", info[stat])
 
 func generate_fused_flower(fuse_with: Flower):
-	pass
+	Debug.print(self.info, "\n", fuse_with.info)
+	info["plant_name"] = info["plant_name"] + "-"+ fuse_with.info["plant_name"]
+	info["growth_time"] = (info["growth_time"] + fuse_with.info["growth_time"])/2
+	if fuse_with.info["sun_multiplier"] > info["sun_multiplier"]:
+		info["sun_multiplier"] = fuse_with.info["sun_multiplier"]
+	if fuse_with.info["water_needs"] > info["water_needs"]:
+		info["water_needs"] = fuse_with.info["water_needs"]
 	
+	var f1_stats = get_flower_stats_dict()
+	var f2_stats = fuse_with.get_flower_stats_dict()
+	
+	var third_rule_exempted : Array
+	
+	for stat in f1_stats:
+		Debug.print(stat, " : ", f1_stats[stat], " % ", f2_stats[stat])
+		if (f1_stats[stat] == 0 or f2_stats[stat] == 0) and !(f1_stats[stat] == 0 and f2_stats[stat] == 0):
+			Debug.print("One of the flowers has a value of 0")
+			f1_stats[stat] += f2_stats[stat]
+			if f1_stats[stat] > 1:
+				f1_stats[stat] -= 1
+		
+		elif f1_stats[stat] > 0 and f2_stats[stat] > 0:
+			var addition = f1_stats[stat] + f2_stats[stat]
+			var addition_diff = maxf(f1_stats[stat], f2_stats[stat])*2 - minf(f1_stats[stat], f2_stats[stat])
+			f1_stats[stat] = maxf(addition, addition_diff)
+		
+		elif f1_stats[stat] < 0 and f2_stats[stat] > 0:
+			f1_stats[stat] += f2_stats[stat] * 2
+			third_rule_exempted.append(stat)
+			pass
+		
+		elif f1_stats[stat] > 0 and f2_stats[stat] < 0:
+			pass
+		
+		if !third_rule_exempted.is_empty():
+			for value in third_rule_exempted:
+				f1_stats[get_highest_stat_with_exception(get_flower_stats_dict(), third_rule_exempted)] -= 3
+			pass
+		
+		info[stat] = f1_stats[stat]
+		Debug.print("Value changed to ", f1_stats[stat])
+	
+	Debug.print(info)
+	pass
+
+func get_highest_stat_with_exception(stats: Dictionary, exceptions : Array = []) :
+	pass
 
 func generate_seeds():
 	#simple idea, is seeds in inventory = growth_stage -1.
@@ -140,13 +188,13 @@ func get_flower_plant_sprite() -> Sprite2D:
 	flower_sprite.scale = Vector2(4, 4)
 	flower_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	
-	flower_sprite.texture = load(sprite_directory + str(id) + ".png")
+	flower_sprite.texture = plant_texture #load(sprite_directory + str(id) + ".png")
 	return flower_sprite
 
 func get_flower_stats_dict() -> Dictionary:
 	var stat_dict : Dictionary 
-	if growth_stage == 3:
-		stat_dict = info.duplicate()
+	#if growth_stage == 3:
+	stat_dict = info.duplicate()
 	stat_dict.erase("plant_name")
 	stat_dict.erase("sun_multiplier")
 	stat_dict.erase("growth_time")
@@ -155,7 +203,7 @@ func get_flower_stats_dict() -> Dictionary:
 
 func get_relevant_flower_info() -> Dictionary:
 	var stat_dict_1 : Dictionary 
-	stat_dict_1 = info
+	stat_dict_1 = info.duplicate()
 	
 	var to_remove: Array
 	for data_point in info:
