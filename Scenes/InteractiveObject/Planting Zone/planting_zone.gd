@@ -17,7 +17,7 @@ var zone_full : bool = false
 
 var flower_sprite_zone
 
-var growth_multipler: int = 4
+var growth_multipler: float = 1.5
 
 signal growth_end
 signal zone_hovered
@@ -88,7 +88,7 @@ func add_flower_visuals():
 func handle_flower_growth_timer():
 	if !growth_timer.is_stopped():
 		growth_timer.stop()
-	growth_timer.wait_time = flower_in_zone.info.get("growth_time")/4 * growth_multipler
+	growth_timer.wait_time = flower_in_zone.info.get("growth_time")/4.0 * growth_multipler
 	growth_timer.one_shot = true
 	flower_growth()
 

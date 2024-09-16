@@ -1,7 +1,7 @@
 extends InteractiveObject
 
 # hyacinth, lavender, rose, sage, sunflower, tansy [7, 9, 21, 23, 25, 26] 
-var starting_seed_stock : Array = [19, 21, 24] 
+var starting_seed_stock : Array = [1, 6, 3, 19] 
 
 var seed_stock : Array = []
 

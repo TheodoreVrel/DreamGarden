@@ -10,6 +10,8 @@ var hovered_slot : InventorySlot
 signal bought_flower
 signal closed_shop
 
+signal hovered_a_slot
+
 func _ready():
 	for slot in shop_grid.get_children():
 		slot.connect("hovered", on_area_entered)
@@ -26,6 +28,7 @@ func on_close_button_down():
 
 func on_area_entered(slot):
 	hovered_slot = slot
+	hovered_a_slot.emit(slot)
 	#print("i", slot)
 
 func clicked_on_slot():

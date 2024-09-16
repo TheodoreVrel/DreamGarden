@@ -12,7 +12,8 @@ var seed_amount : int = 0
 signal hovered
 
 func select(from_right: bool):
-	size = Vector2(85,85)
+	set_deferred("size",Vector2(85,85))
+	 #= 
 	$TextureRectBox.size = Vector2(85,85)
 	currently_selected = true
 	size_flags_stretch_ratio = 2

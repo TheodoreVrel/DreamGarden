@@ -107,45 +107,84 @@ func generate_fused_flower(fuse_with: Flower):
 	if fuse_with.info["water_needs"] > info["water_needs"]:
 		info["water_needs"] = fuse_with.info["water_needs"]
 	
-	var f1_stats = get_flower_stats_dict()
-	var f2_stats = fuse_with.get_flower_stats_dict()
+	var f1_stats : Dictionary = get_flower_stats_dict()
+	var f2_stats : Dictionary = fuse_with.get_flower_stats_dict()
 	
-	var third_rule_exempted : Array
+	var fourth_rule_array : Array = []
 	
 	for stat in f1_stats:
 		Debug.print(stat, " : ", f1_stats[stat], " % ", f2_stats[stat])
-		if (f1_stats[stat] == 0 or f2_stats[stat] == 0) and !(f1_stats[stat] == 0 and f2_stats[stat] == 0):
+		if (f1_stats[stat] == 0.0 or f2_stats[stat] == 0.0) and !(f1_stats[stat] == 0.0 and f2_stats[stat] == 0.0):
 			Debug.print("One of the flowers has a value of 0")
 			f1_stats[stat] += f2_stats[stat]
-			if f1_stats[stat] > 1:
-				f1_stats[stat] -= 1
+			if f1_stats[stat] > 1.0:
+				f1_stats[stat] -= 1.0
 		
 		elif f1_stats[stat] > 0 and f2_stats[stat] > 0:
 			var addition = f1_stats[stat] + f2_stats[stat]
 			var addition_diff = maxf(f1_stats[stat], f2_stats[stat])*2 - minf(f1_stats[stat], f2_stats[stat])
 			f1_stats[stat] = maxf(addition, addition_diff)
 		
-		elif f1_stats[stat] < 0 and f2_stats[stat] > 0:
-			f1_stats[stat] += f2_stats[stat] * 2
-			third_rule_exempted.append(stat)
-			pass
+		#fifth rule : Two negatives neutralize the stat for the whole garden
+		elif f1_stats[stat] < 0 and f2_stats[stat] < 0:
+			f1_stats[stat] = 10000.0
 		
+		#swapped places for order of operations, but this was originally below and so 4th rule
 		elif f1_stats[stat] > 0 and f2_stats[stat] < 0:
-			pass
+			var value1 = f1_stats[stat]
+			var value2 = f2_stats[stat]
+			var rand_multiplier : Array = [1, -1]
+			
+			f1_stats[stat] = 0.0
+			var assign_later = (abs(value1) + abs(value2)) * rand_multiplier.pick_random()
+			
+			fourth_rule_array.append([stat, assign_later])
+			f1_stats[get_random_stat(f1_stats, stat, true)] = (abs(value1) + abs(value2)) * rand_multiplier.pick_random()
 		
-		if !third_rule_exempted.is_empty():
-			for value in third_rule_exempted:
-				f1_stats[get_highest_stat_with_exception(get_flower_stats_dict(), third_rule_exempted)] -= 3
-			pass
+		#third rule
+		elif f1_stats[stat] < 0.0 and f2_stats[stat] > 0.0:
+			f1_stats[stat] += f2_stats[stat] * 2.0
+			f1_stats[get_random_stat(f1_stats, stat)] -= 1.0
+		
+		
 		
 		info[stat] = f1_stats[stat]
+		#print("--------- stat (((((((1)))))))",info[stat])
 		Debug.print("Value changed to ", f1_stats[stat])
+	
+	#rule 4 has to be treated after everything
+	for stat in f1_stats:
+		for i in fourth_rule_array:
+			#print(fourth_rule_array)
+			#print(i, " - ", i[0])
+			if i[0] == stat:
+				info[get_random_stat(f1_stats, stat, true)] = i[1]
+			#print("--------- stat (((((((2)))))))",info[stat])
+	
+	for stat in f1_stats:
+		#print("--------- stat (((((((3)))))))",info[stat])
+		if f1_stats[stat] > 5000.0:
+			info[stat] = "Neutralizing"
 	
 	Debug.print(info)
 	pass
 
-func get_highest_stat_with_exception(stats: Dictionary, exceptions : Array = []) :
-	pass
+func get_random_stat(stats: Dictionary, exempted_stat, equal_to_zero : bool = false) :
+	var dict : Dictionary = stats.duplicate()
+	dict.erase(exempted_stat)
+	
+	var dict_to_array : Array
+	
+	
+	if !equal_to_zero:
+		for stat in dict:
+			dict_to_array.append(stat)	
+	else:
+		for stat in dict:
+			if dict[stat] == 0:
+				dict_to_array.append(stat)
+	
+	return dict_to_array.pick_random()
 
 func generate_seeds():
 	#simple idea, is seeds in inventory = growth_stage -1.
@@ -207,10 +246,17 @@ func get_relevant_flower_info() -> Dictionary:
 	
 	var to_remove: Array
 	for data_point in info:
-		#print(data_point, "   ")
+		
+		#if str(stat_dict_1.get(data_point)) == "0":
+			#to_remove.append(data_point)
 		if str(stat_dict_1.get(data_point)) == "0":
 			to_remove.append(data_point)
 		
+		#print(data_point, "   ", stat_dict_1[data_point])
+		#print(typeof(stat_dict_1[data_point]))
+		#if stat_dict_1[data_point] is float and stat_dict_1[data_point] >= 5000 :
+			#stat_dict_1[data_point] = "Neutralizing"
+			
 	for i in to_remove:
 		stat_dict_1.erase(i)
 	#print("-------------------", stat_dict)

@@ -31,13 +31,12 @@ func _ready():
 	#on_stat_changed($HBoxContainer/StatValueVBoxContainer/SorrowProgressBar, -12)
 
 
-func change_stat(bar : ProgressBar, new_value: float):
-	#update_value_dict(bar, new_value)
-	
-	
-	bar.value = new_value
+func change_stat(bar : ProgressBar, new_value: Variant):
+	print("This is the new value: ", new_value)
+	if new_value is not String:
+		bar.value = new_value
+	else: bar.value = 500
 	#print(bar, "   ",new_value,"    --- Updated the statbar")
-	#await get_tree().create_timer(0.1)
 	handle_stat_bar(bar)
 
 func update_all_stats(new_stats : Array):
@@ -47,6 +46,9 @@ func update_all_stats(new_stats : Array):
 	for i in range(num):
 		change_stat(stat_values.get_child(i), new_stats[i])
 
+#func neutralize_stat(stat):
+	#change_stat()
+
 func handle_stat_bar(statBar : ProgressBar):
 	#if current_number_of_stats != 0:
 	#statBar.value = i
@@ -54,6 +56,9 @@ func handle_stat_bar(statBar : ProgressBar):
 	if statBar.value < 0:
 		change_stat_label(get_label_from_progress_bar(statBar), false)
 		statBar.value = abs(statBar.value)
+	
+	#elif statBar.value >= 110:
+		#statBar.value = 0
 	else:
 		change_stat_label(get_label_from_progress_bar(statBar), true)
 	#print(statBar.value)
@@ -67,6 +72,10 @@ func hide_or_show_stat(statBar : ProgressBar):
 	if statBar.value == 0:
 		statBar.visible = false
 		label.visible = false
+	elif statBar.value >= 110:
+		statBar.visible = true
+		label.visible = true
+		statBar.value = 0
 	else:
 		statBar.visible = true
 		label.visible = true

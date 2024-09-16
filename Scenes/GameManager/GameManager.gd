@@ -21,6 +21,8 @@ func _ready():
 	garden.connect("seed_harvested", on_seed_gain)
 	garden.connect("stats_updated", on_garden_stats_updated)
 	garden.connect("zone_hovered", on_planting_zone_hovered)
+	garden.connect("plant_planted", on_plant_planted)
+	#garden.connect("stat_neutralized", on_stat_neutralized)
 	player.connect("player_interact", on_interact)
 	player.connect("cast_hit_object", on_cast_hit_object)
 	player.connect("cast_exit_object", on_cast_exit_object)
@@ -32,6 +34,7 @@ func _ready():
 	shop.connect("seed_stock_updated", on_seed_stock_updated)
 	shopUI.connect("bought_flower", on_seed_buy)
 	shopUI.connect("closed_shop", on_shop_close)
+	shopUI.connect("hovered_a_slot", on_slot_hovered)
 	
 	
 	game_manager_ready.emit()
@@ -100,13 +103,15 @@ func on_interact():
 		if !currently_cast_object.zone_full:
 			garden.plant_flower(currently_held_seed, currently_cast_object)
 			#.add_flower_to_zone()
-			inventory.remove_flower()
+			
 	
 	elif currently_cast_object and currently_cast_object.has_method("interact_with"):
 		#print(currently_cast_object)
 		currently_cast_object.interact_with()
 	
 
+func on_plant_planted(flower : Flower):
+	inventory.remove_flower()
 
 
 func on_seed_gain(flower: Flower, amount: int):
@@ -114,11 +119,14 @@ func on_seed_gain(flower: Flower, amount: int):
 
 func on_garden_stats_updated(stats: Dictionary):
 	var stat_names = stats.keys()
-	var stat_values = stats.values()
-	
+	var stat_values : Array = stats.values()
 	#for i in range(stats.size()):
 		#print("stat  ", i, "   ", stat_names[i], " ", stat_values[i])
 	gardenUI.update_all_stats(stat_values)
+
+#func on_stat_neutralized(stat: String):
+	#
+	#pass
 
 func on_seed_buy(flower: Flower):
 	#separate in case I add an economy (probably will to incentivise doing missions)

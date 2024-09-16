@@ -8,5 +8,5 @@ func update_tooltip(flower_info : Dictionary):
 		label.text += str(info) + " : " + str(flower_info.get(info)) + "\n"
 	label.text += "[/color]"
 
-func show_tooltip(show : bool):
-	visible = show
+func show_tooltip(show_tooltip : bool):
+	visible = show_tooltip

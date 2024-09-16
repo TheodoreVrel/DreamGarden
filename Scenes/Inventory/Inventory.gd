@@ -133,7 +133,8 @@ func add_flower(flower: Flower, amount: int):
 	#empty_slot.slotted_flower.growth_stage = -1
 	#empty_slot.seed_amount += 1
 	#empty_slot.update_flower_texture_rect()
-	empty_slot.add_flower_to_slot(flower)
+	empty_slot.add_flower_to_slot(flower, amount)
+	#empty_slot.seed_amount += amount
 	set_slot_amount(empty_slot)
 	
 	if empty_slot.currently_selected:
@@ -170,7 +171,7 @@ func remove_flower(all: bool = false):
 		seeds_emptied.emit()
 		check_inventory_empty()
 
-func remove_all_flowers_from_slot(slot: int):
+func remove_all_flowers_from_slot():
 	container.get_child(selected_slot_int).remove_all_flowers_from_slot()
 	check_inventory_empty()
 
