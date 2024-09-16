@@ -42,9 +42,9 @@ func _init(new_id: int = id):
 	
 	seed_texture = load(sprite_directory + str(id) + "_seed.png")
 	plant_texture = load(sprite_directory + str(id) + ".png")
-	if !seed_texture:
-		seed_texture = load(sprite_directory + "0_seed.png")
-		plant_texture = load(sprite_directory + "0.png")
+	#if !seed_texture:
+		#seed_texture = load(sprite_directory + "0_seed.png")
+		#plant_texture = load(sprite_directory + "0.png")
 	
 	#Debug.print(get_relevant_flower_info())
 	#print("plant texture = ", plant_texture)
@@ -166,6 +166,7 @@ func generate_fused_flower(fuse_with: Flower):
 		if f1_stats[stat] > 5000.0:
 			info[stat] = "Neutralizing"
 	
+	is_fusion = true
 	Debug.print(info)
 	pass
 
@@ -227,7 +228,7 @@ func get_flower_plant_sprite() -> Sprite2D:
 	flower_sprite.scale = Vector2(4, 4)
 	flower_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	
-	flower_sprite.texture = plant_texture #load(sprite_directory + str(id) + ".png")
+	flower_sprite.texture = load(sprite_directory + str(id) + ".png")
 	return flower_sprite
 
 func get_flower_stats_dict() -> Dictionary:

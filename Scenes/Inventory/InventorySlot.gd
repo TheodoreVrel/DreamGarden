@@ -12,9 +12,10 @@ var seed_amount : int = 0
 signal hovered
 
 func select(from_right: bool):
-	set_deferred("size",Vector2(85,85))
-	 #= 
-	$TextureRectBox.size = Vector2(85,85)
+	#set_deferred("size",Vector2(85,85))
+	size = Vector2(85,85)
+	#set_deferred("$TextureRectBox.size",Vector2(85,85))
+	#$TextureRectBox.size = Vector2(85,85)
 	currently_selected = true
 	size_flags_stretch_ratio = 2
 	$TextureRectBox.rotate_selected(from_right)
@@ -52,7 +53,7 @@ func add_flower_to_slot(flower: Flower, amount : int = 1):
 	slotted_flower.growth_stage = -1
 	seed_amount += amount
 	update_flower_texture_rect()
-	pass
+	print("added flower to slot : ", flower, " | ", self)
 
 func remove_flower(all: bool = false):
 	#print("removing from ", container.get_child(selectedSlot).seed_amount)

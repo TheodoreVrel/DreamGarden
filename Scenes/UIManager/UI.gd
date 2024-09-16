@@ -32,7 +32,7 @@ func _ready():
 
 
 func change_stat(bar : ProgressBar, new_value: Variant):
-	print("This is the new value: ", new_value)
+	#print("This is the new value: ", new_value)
 	if new_value is not String:
 		bar.value = new_value
 	else: bar.value = 500

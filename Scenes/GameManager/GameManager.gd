@@ -99,11 +99,13 @@ func on_interact():
 	#print("checking if npc or plot: ", currently_cast_object)
 	#print (currently_held_seed, currently_cast_object is PlantingZone)
 	
-	if currently_held_seed and currently_cast_object is PlantingZone:
-		if !currently_cast_object.zone_full:
+	if currently_cast_object is PlantingZone:
+		if currently_held_seed and !currently_cast_object.zone_full:
 			garden.plant_flower(currently_held_seed, currently_cast_object)
 			#.add_flower_to_zone()
-			
+		if currently_cast_object.flower_in_zone and currently_cast_object.flower_in_zone.growth_stage == 3:
+			print(" currently cast : ", currently_cast_object, " | flower : ", currently_cast_object.flower_in_zone, " | age : ", currently_cast_object.flower_in_zone.growth_stage)
+			garden.harvest_flower_zone(currently_cast_object)
 	
 	elif currently_cast_object and currently_cast_object.has_method("interact_with"):
 		#print(currently_cast_object)

@@ -25,7 +25,7 @@ func _ready():
 	for zone in $PlantingZones.get_children():
 		new_planting_zone(zone)
 
-func harvest_flower(zone: int):
+func harvest_flower_int(zone: int):
 	#gives you 2-4 seeds and removes the flower
 	var new_seeds : Flower = garden_planting_zones[zone].flower_in_zone
 	new_seeds.growth_stage = -1
@@ -36,11 +36,27 @@ func harvest_flower(zone: int):
 	garden_planting_zones[zone].clear_zone()
 	planted_flowers -= 1
 	pass
+func harvest_flower_zone(zone: PlantingZone):
+	#gives you 2-4 seeds and removes the flower
+	var new_seeds : Flower = zone.flower_in_zone
+	new_seeds.growth_stage = -1
+	
+	var amount = randi_range(2,4)
+	
+	seed_harvested.emit(new_seeds, amount)
+	print(zone.flower_in_zone)
+	zone.clear_zone()
+	planted_flowers -= 1
+	
+	
+	calculate_garden_stats()
+	print("ZONE                                                         ",zone.flower_in_zone)
 
 func plant_flower(flower: Flower, zone: PlantingZone):
 	#print("DFZGZEBGILHABGFLIAEB")
 	#garden_planting_zones[zone]
-	if !zone.flower_in_zone or (zone.flower_in_zone and zone.flower_in_zone.growth_stage == 0 and !zone.flower_in_zone.is_fusion):
+	if !zone.flower_in_zone or (zone.flower_in_zone and zone.flower_in_zone.growth_stage == 0 and 
+	!(zone.flower_in_zone.is_fusion or flower.is_fusion)):
 		zone.add_flower_to_zone(flower)
 		planted_flowers += 1
 		plant_planted.emit(flower)
@@ -64,6 +80,7 @@ func on_plant_in_zone_growth_end():
 func calculate_garden_stats():
 	for stat in garden_stats_total:
 		garden_stats_total[stat] = 0
+		garden_stats_normalized[stat] = 0
 	
 	var total_stats : float = 0.0
 	
@@ -76,7 +93,7 @@ func calculate_garden_stats():
 			for stat in flower_stats_dict:
 				#print(str(flower_stats_dict[stat]))
 				if str(flower_stats_dict[stat]) != "Neutralizing" and str(garden_stats_total[stat]) != "Neutralizing":
-					print(flower_stats_dict[stat], "      ----    ",garden_stats_total[stat]) 
+					#print(flower_stats_dict[stat], "      ----    ",garden_stats_total[stat]) 
 					garden_stats_total[stat] += flower_stats_dict[stat]
 				else:
 					garden_stats_total[stat] = "Neutralizing"
@@ -85,8 +102,8 @@ func calculate_garden_stats():
 				
 	
 	for stat in garden_stats_total:
-		print("__________________",typeof( garden_stats_total[stat]))
-		print(garden_stats_total[stat])
+		#print("__________________",typeof( garden_stats_total[stat]))
+		#print(garden_stats_total[stat])
 		if garden_stats_total[stat] is not String:
 			total_stats += abs(garden_stats_total[stat])
 			#print("_______________________ total stats value updated : ", total_stats)
@@ -95,21 +112,21 @@ func calculate_garden_stats():
 	for stat in garden_stats_normalized:
 		if garden_stats_total[stat] is not String:
 			garden_stats_normalized[stat] = snappedf(float(garden_stats_total[stat] / total_stats) * 100.0, 0.0001)
-		print("(((((((1)))))))  ",garden_stats_normalized[stat])
+		#print("(((((((1)))))))  ",garden_stats_normalized[stat])
 	
 	for stat in garden_stats_normalized:
 		if garden_stats_total[stat] is not String and abs(garden_stats_normalized[stat]) < 10.0:
 			total_stats -= abs(garden_stats_total[stat])
 			garden_stats_total[stat] = 0.0
-		print("(((((((2)))))))  ",garden_stats_normalized[stat])
+		#print("(((((((2)))))))  ",garden_stats_normalized[stat])
 	
 	for stat in garden_stats_normalized:
 		if garden_stats_total[stat] is not String:
 			garden_stats_normalized[stat] = snappedf(float(garden_stats_total[stat] / total_stats) * 100.0, 0.0001)
-			print("(((((((2.5)))))))  ",garden_stats_total[stat])
+			#print("(((((((2.5)))))))  ",garden_stats_total[stat])
 		else:
 			garden_stats_normalized[stat] = "Neutralizing"
-		print("(((((((3)))))))  ",garden_stats_normalized[stat])
+		#print("(((((((3)))))))  ",garden_stats_normalized[stat])
 		#else:
 			#garden_stats_normalized[stat] = 10000
 		#print("cheking operation - ", garden_stats_normalized[stat], " | ", garden_stats_total[stat], " ---- ", total_stats, "  [",float(garden_stats_total[stat] / total_stats) * 100.0, "]")

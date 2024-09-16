@@ -12,7 +12,7 @@ var click_color : Color = Color.GOLD
 
 
 @export_range(1,4) var zone_size : int 
-var flower_in_zone: Flower
+@export var flower_in_zone: Flower
 var zone_full : bool = false
 
 var flower_sprite_zone
@@ -67,7 +67,10 @@ func add_flower_to_zone(flower: Flower):
 func clear_zone():
 	flower_in_zone = null
 	zone_full = false
+	for flower_sprite in flower_sprite_zone.get_children():
+		flower_sprite.queue_free()
 	flower_sprite_zone = null
+	
 
 func add_flower_visuals():
 	#Debug.print("attempting to add visuals. Flower is ", flower_in_zone, " with sprite ", flower_in_zone.plant_texture)

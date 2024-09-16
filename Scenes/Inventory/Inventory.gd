@@ -153,7 +153,7 @@ func get_first_empty_slot() :
 func get_first_slot_with_flower(flower : Flower) :
 	for slot in range(inventory_slot_amount):
 		#print("slot ", slot)
-		if container.get_child(slot).slotted_flower == flower:
+		if container.get_child(slot).slotted_flower and container.get_child(slot).slotted_flower.info == flower.info:
 			#print("found slot with ", flower, " (", container.get_child(slot).seed_amount, ") : ", container.get_child(slot).slotted_flower, " | slot number ", slot)
 			return container.get_child(slot)
 	return null
