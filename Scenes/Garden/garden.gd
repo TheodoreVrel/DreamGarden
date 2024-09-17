@@ -112,12 +112,15 @@ func calculate_garden_stats():
 	for stat in garden_stats_normalized:
 		if garden_stats_total[stat] is not String:
 			garden_stats_normalized[stat] = snappedf(float(garden_stats_total[stat] / total_stats) * 100.0, 0.0001)
+			if abs(garden_stats_normalized[stat]) < 10.0:
+				total_stats -= abs(garden_stats_total[stat])
+				garden_stats_total[stat] = 0.0
 		#print("(((((((1)))))))  ",garden_stats_normalized[stat])
 	
-	for stat in garden_stats_normalized:
-		if garden_stats_total[stat] is not String and abs(garden_stats_normalized[stat]) < 10.0:
-			total_stats -= abs(garden_stats_total[stat])
-			garden_stats_total[stat] = 0.0
+	#for stat in garden_stats_normalized:
+		#if garden_stats_total[stat] is not String and abs(garden_stats_normalized[stat]) < 10.0:
+			#total_stats -= abs(garden_stats_total[stat])
+			#garden_stats_total[stat] = 0.0
 		#print("(((((((2)))))))  ",garden_stats_normalized[stat])
 	
 	for stat in garden_stats_normalized:

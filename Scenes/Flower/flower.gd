@@ -133,7 +133,7 @@ func generate_fused_flower(fuse_with: Flower):
 		elif f1_stats[stat] > 0 and f2_stats[stat] < 0:
 			var value1 = f1_stats[stat]
 			var value2 = f2_stats[stat]
-			var rand_multiplier : Array = [1, -1]
+			var rand_multiplier : Array = [1, 1, 1, -1]
 			
 			f1_stats[stat] = 0.0
 			var assign_later = (abs(value1) + abs(value2)) * rand_multiplier.pick_random()
