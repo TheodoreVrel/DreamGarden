@@ -16,11 +16,10 @@ texture = ExtResource("2_x11pv")
 region_enabled = true
 region_rect = Rect2(101, 107, 58, 40)
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 2
-freeze = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, 11)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_8qedc")

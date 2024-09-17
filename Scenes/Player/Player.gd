@@ -94,6 +94,7 @@ func interact():
 
 func _on_ray_cast_2d_entered(new_collider):
 	cast_hit_object.emit(new_collider)
+	print(new_collider)
 
 func _on_ray_cast_2d_exited(old_collider):
 	cast_exit_object.emit(old_collider)

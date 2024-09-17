@@ -1,0 +1,132 @@
+[gd_scene load_steps=12 format=3 uid="uid://dh7nh0cxoeass"]
+
+[ext_resource type="Script" path="res://Scenes/InteractiveObject/Trinkets/PortableSun/sun_lamp.gd" id="1_2uxct"]
+[ext_resource type="Texture2D" uid="uid://ds32epfgxvi1o" path="res://Assets/Prototypes/sun_lamp.png" id="2_slkb6"]
+[ext_resource type="Texture2D" uid="uid://cw7nslmws2xau" path="res://Assets/Light_texture.png" id="3_1ugnr"]
+[ext_resource type="Texture2D" uid="uid://dbp3wfcub362i" path="res://Assets/sun_zone.png" id="4_oway5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y2iov"]
+size = Vector2(2.66667, 1.66667)
+
+[sub_resource type="Animation" id="Animation_wa5o3"]
+resource_name = "jiggle"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 1.9999),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-2, 0), Vector2(-0.5, 0), Vector2(0.5, 0), Vector2(-0.5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4ln0e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-0.6, -10.8)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_igj13"]
+_data = {
+"RESET": SubResource("Animation_4ln0e"),
+"jiggle": SubResource("Animation_wa5o3")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p37c4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0b2e4"]
+radius = 47.667
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w8g4b"]
+radius = 8.67307
+
+[node name="SunLamp" type="Node2D"]
+y_sort_enabled = true
+scale = Vector2(6, 6)
+script = ExtResource("1_2uxct")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture_filter = 1
+position = Vector2(-1, -8)
+scale = Vector2(1, 1)
+texture = ExtResource("2_slkb6")
+hframes = 4
+region_enabled = true
+region_rect = Rect2(0, 0, 44, 16)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-0.6, -10.8)
+scale = Vector2(1, 1)
+color = Color(1, 0.815686, 0.498039, 1)
+texture = ExtResource("3_1ugnr")
+texture_scale = 0.5
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -0.833334)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_y2iov")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_igj13")
+}
+
+[node name="AoESprite2D" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.254902)
+material = SubResource("CanvasItemMaterial_p37c4")
+scale = Vector2(0.445, 0.445)
+texture = ExtResource("4_oway5")
+
+[node name="EffectArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectArea2D"]
+shape = SubResource("CircleShape2D_0b2e4")
+
+[node name="InteractionArea2D" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D"]
+position = Vector2(-0.333333, -7.66667)
+shape = SubResource("CircleShape2D_w8g4b")
