@@ -35,7 +35,7 @@ func _ready():
 	shopUI.connect("bought_flower", on_seed_buy)
 	shopUI.connect("closed_shop", on_shop_close)
 	shopUI.connect("hovered_a_slot", on_slot_hovered)
-	
+	#$SunLamp.connect("all_plots_in_sun_zone", on_sun_lamp_affecting_zones)
 	
 	game_manager_ready.emit()
 	
@@ -104,7 +104,7 @@ func on_interact():
 			garden.plant_flower(currently_held_seed, currently_cast_object)
 			#.add_flower_to_zone()
 		if currently_cast_object.flower_in_zone and currently_cast_object.flower_in_zone.growth_stage == 3:
-			print(" currently cast : ", currently_cast_object, " | flower : ", currently_cast_object.flower_in_zone, " | age : ", currently_cast_object.flower_in_zone.growth_stage)
+			#print(" currently cast : ", currently_cast_object, " | flower : ", currently_cast_object.flower_in_zone, " | age : ", currently_cast_object.flower_in_zone.growth_stage)
 			garden.harvest_flower_zone(currently_cast_object)
 	
 	elif currently_cast_object and currently_cast_object.has_method("interact_with"):
@@ -115,6 +115,11 @@ func on_interact():
 func on_plant_planted(flower : Flower):
 	inventory.remove_flower()
 
+#func on_sun_lamp_affecting_zones(zones: Array):
+	#for plot in zones:
+		#if !plot.in_the_sun:
+			#
+	#pass
 
 func on_seed_gain(flower: Flower, amount: int):
 	inventory.add_flower(flower, amount)

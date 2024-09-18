@@ -53,7 +53,7 @@ func add_flower_to_slot(flower: Flower, amount : int = 1):
 	slotted_flower.growth_stage = -1
 	seed_amount += amount
 	update_flower_texture_rect()
-	print("added flower to slot : ", flower, " | ", self)
+	#print("added flower to slot : ", flower, " | ", self)
 
 func remove_flower(all: bool = false):
 	#print("removing from ", container.get_child(selectedSlot).seed_amount)

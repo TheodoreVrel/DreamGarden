@@ -20,13 +20,14 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	if can_move:
+	if can_move and Globals.current_mode == Globals.mode.NORMAL:
 		move_player(delta)
 
 
 func _process(delta):
-	if Input.is_action_just_released("left_click") and can_interact:
-		interact()
+	if Globals.current_mode == Globals.mode.NORMAL:
+		if Input.is_action_just_released("left_click") and can_interact:
+			interact()
 	if Input.is_action_just_released("ui_down"):
 		print("bbb")
 
@@ -94,7 +95,7 @@ func interact():
 
 func _on_ray_cast_2d_entered(new_collider):
 	cast_hit_object.emit(new_collider)
-	print(new_collider)
+	#print(new_collider)
 
 func _on_ray_cast_2d_exited(old_collider):
 	cast_exit_object.emit(old_collider)
