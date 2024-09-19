@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ckswypy8lfwbq"]
+[gd_scene load_steps=12 format=3 uid="uid://ckswypy8lfwbq"]
 
 [ext_resource type="Script" path="res://Scenes/GameManager/GameManager.gd" id="1_j82kq"]
 [ext_resource type="PackedScene" uid="uid://d3hqkt0vfcs0s" path="res://Scenes/Garden/garden.tscn" id="2_6txk5"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://ct72ybvsior3c" path="res://Scenes/InteractiveObject/Shop/shop_grid.tscn" id="7_iatum"]
 [ext_resource type="PackedScene" uid="uid://2dqp5grdm86n" path="res://Scenes/InteractiveObject/Shop/Shop.tscn" id="9_a3ihh"]
 [ext_resource type="PackedScene" uid="uid://cq60es5c30uwb" path="res://Scenes/UIManager/flower_tooltip.tscn" id="9_urf32"]
+[ext_resource type="PackedScene" uid="uid://c72vnx6tn60pe" path="res://Scenes/InteractiveObject/Trinkets/Umbrella/umbrella.tscn" id="11_mooqb"]
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_j82kq")
@@ -47,3 +48,6 @@ metadata/_edit_lock_ = true
 visible = false
 scale = Vector2(2.36, 2.36)
 metadata/_edit_lock_ = true
+
+[node name="Umbrella" parent="." instance=ExtResource("11_mooqb")]
+position = Vector2(-44, 250)

@@ -38,5 +38,3 @@ position = Vector2(-1.5, -1.5)
 
 [node name="Marker2D4" type="Marker2D" parent="Markers"]
 position = Vector2(1.5, 1.5)
-
-[node name="GrowthTimer" type="Timer" parent="."]

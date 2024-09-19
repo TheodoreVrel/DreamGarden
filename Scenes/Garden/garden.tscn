@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d3hqkt0vfcs0s"]
 
-[ext_resource type="PackedScene" uid="uid://dwel875srxe3s" path="res://Scenes/InteractiveObject/Triangle/planting_zone_triangle.tscn" id="1_85apd"]
+[ext_resource type="PackedScene" uid="uid://dwel875srxe3s" path="res://Scenes/InteractiveObject/Planting Zone/Triangle/planting_zone_triangle.tscn" id="1_85apd"]
 [ext_resource type="Script" path="res://Scenes/Garden/garden.gd" id="1_ixc66"]
 [ext_resource type="PackedScene" uid="uid://d0ysplh3oee43" path="res://Scenes/InteractiveObject/Planting Zone/Square/planting_zone_square.tscn" id="2_aqmp0"]
 

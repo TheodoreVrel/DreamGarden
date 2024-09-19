@@ -6,9 +6,12 @@ class_name PlantingZone
 @onready var growth_timer : Timer = find_child("GrowthTimer")
 @onready var area : Area2D = find_child("PlantingZone")
 
-var default_color: Color = Color.CORNFLOWER_BLUE
+var default_color: Color = Color.DARK_GRAY
 var hover_color: Color = Color.BISQUE
 var click_color: Color = Color.GOLD
+var sun_color: Color = Color.GOLD
+var rain_color: Color = Color.DODGER_BLUE
+
 
 
 #@export_range(1,4) var zone_size : int 
@@ -17,24 +20,23 @@ var zone_full: bool = false
 
 var flower_sprite_zone
 
-var normal_growth_multipler: float = 10
+var normal_growth_multipler: float = 3.5 # = 60 for minutes
+var growth_multiplier : float = 1.0
 var sun_growth_multiplier: float = 1.0
 var watered_multiplier: float = 1.25
 
-var total_normal_growth_time : float = 0.0
-var quarter_normal_growth_time : float = 0.0
+var total_normal_growth_time : float = 10.0
+var quarter_growth_break_points : Array
+#var last_breakpoint_passed : float
+var next_breakpoint_to_pass : float
 var growth_time_left: float
-#var adjusted_quarter_growth_time : float
-
-var should_adjust : bool = false
-var sun_adjust_amount : float = 1.0 # this is always equal to 1, sun_growth_multiplier or 1/sun_growth_multiplier
-var adjusted_for_sun : bool = false
-#var adjustment : float #equal to sun_adjust_amount * water_adjust_amount
+func in_the_sun() -> bool: return !sun_lamps_affecting.is_empty()
+var timer_start: bool = false
 
 
 var sun_lamps_affecting : Array
+var umbrellas_affecting : Array
 #var in_the_sun: bool = false
-func in_the_sun() -> bool: return !sun_lamps_affecting.is_empty()
 var water_level: int = 0
 var water_needs: int = 1
 
@@ -49,24 +51,26 @@ func _ready():
 		#player.connect("cast_exit", _on_zone_exit)
 	if polygon:
 		polygon.color = default_color
-	growth_timer.connect("timeout", _on_growth_timer_timeout)
+	#growth_timer.connect("timeout", _on_growth_timer_timeout)
 	
 	area.connect("mouse_entered", on_mouse_entered)
 	area.connect("mouse_exited", on_mouse_exited)
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_down"):
-		if flower_in_zone:
-			print("____ ", self, "Sun lamps affecting this zone :",area.get_parent().sun_lamps_affecting,
-			". Sun and water multiplier: ", sun_adjust_amount, " | ", sun_growth_multiplier, ", ", in_the_sun())
-			print("Time left to grow to next stage : ", growth_timer.time_left, "     ", growth_time_left)
-	if Input.is_action_just_released("ui_up") and flower_in_zone:
-		print("Timer for zone ", self, " set for ", growth_timer.wait_time, " seconds.\nTime left in this cycle: ", 
-		growth_timer.time_left, ". Total growth time: ", total_normal_growth_time,".\nCurrent adjustments:\n - In the sun [", 
-		in_the_sun(),"]\nWaiting for flower to adjust [", should_adjust,"]\nCurrently adjusted for sun [", adjusted_for_sun,
-		"]\nCurrent_sun_adjustment [", sun_adjust_amount, "]\n__________________")
+	#if Input.is_action_just_pressed("ui_down"):
+		#if flower_in_zone:
+			#print("____ ", self, "Sun lamps affecting this zone :",area.get_parent().sun_lamps_affecting,
+			#". Sun and water multiplier: ", sun_adjust_amount, " | ", sun_growth_multiplier, ", ", in_the_sun())
+			#print("Time left to grow to next stage : ", growth_timer.time_left, "     ", growth_time_left)
+	#if Input.is_action_just_released("ui_up") and flower_in_zone:
+		#print("Timer for zone ", self, " set for ", growth_timer.wait_time, " seconds.\nTime left in this cycle: ", 
+		#growth_timer.time_left, ". Total growth time: ", total_normal_growth_time,".\nCurrent adjustments:\n - In the sun [", 
+		#in_the_sun(),"]\nWaiting for flower to adjust [", should_adjust,"]\nCurrently adjusted for sun [", adjusted_for_sun,
+		#"]\nCurrent_sun_adjustment [", sun_adjust_amount, "]\n__________________")
 	#if flower_in_zone:
 			#print(sun_adjust_amount)
+	if flower_in_zone and timer_start and Globals.current_mode == Globals.mode.NORMAL:
+		plant_growth(delta)
 
 
 func zone_interaction(interaction: zone_interaction_type):
@@ -78,7 +82,10 @@ func zone_interaction(interaction: zone_interaction_type):
 			polygon.color = default_color
 		zone_interaction_type.CLICKED:
 			polygon.color = click_color
-
+		zone_interaction_type.SUN:
+			polygon.color = sun_color
+		zone_interaction_type.RAIN:
+			polygon.color = rain_color
 
 func add_flower_to_zone(flower: Flower):
 	#print("FFFFFFFFFFFFFFFFFFF planted flower")
@@ -93,7 +100,7 @@ func add_flower_to_zone(flower: Flower):
 		zone_full = true
 	
 	growth_info_setup()
-	handle_flower_growth_timer()
+
 	print("-------------- Added flower with growth stage ", flower_in_zone.growth_stage)
 
 func clear_zone():
@@ -120,40 +127,48 @@ func add_flower_visuals():
 				flower_sprite.rotation -= rotation
 			flower_sprite_zone.add_child(flower_sprite)
 
+func plant_growth(delta):
+	growth_time_left -= delta * growth_multiplier
+	
+	if growth_time_left <= next_breakpoint_to_pass and !quarter_growth_break_points.is_empty():
+		quarter_growth_break_points.erase(next_breakpoint_to_pass)
+		print(quarter_growth_break_points)
+		if !quarter_growth_break_points.is_empty():
+			next_breakpoint_to_pass = quarter_growth_break_points[0]
+		flower_growth()
+	
+	if growth_time_left <= 0:
+		timer_start = false
+
 func growth_info_setup():
 	sun_growth_multiplier = flower_in_zone.info.get("sun_multiplier")
 	water_needs = flower_in_zone.info.get("water_needs")
 	total_normal_growth_time = flower_in_zone.info.get("growth_time") * normal_growth_multipler
-	quarter_normal_growth_time = total_normal_growth_time / 4
-	growth_timer.wait_time = quarter_normal_growth_time
-	print("__________________")
-	if should_adjust:
-		print("# Adjusting when planted because in sun | ", growth_timer.wait_time)
-		adjust_timer(false)
-		print("# Adjusted when planted because in sun | ", growth_timer.wait_time)
-	else:
-		print("# Not adjusting when planted because out of sun | ", growth_timer.wait_time)
-
-func handle_flower_growth_timer():
-	if !growth_timer.is_stopped():
-		growth_timer.stop()
+	growth_time_left = total_normal_growth_time
+	var quarter: float = total_normal_growth_time/4.0
+	quarter_growth_break_points.clear()
+	for i in range(4):
+		quarter_growth_break_points.append(quarter * (3-i))
+	next_breakpoint_to_pass = quarter_growth_break_points[0]
 	
-	growth_timer.one_shot = true
-	flower_growth()
+	if in_the_sun():
+		sun_change()
+	
+	timer_start = true
+	#quarter_normal_growth_time = total_normal_growth_time / 4
+	#growth_timer.wait_time = quarter_normal_growth_time
+	#print("__________________ \ngrowth_time = ", growth_time_left,"\nnext breakpoint: ", 
+	#quarter_growth_break_points[0], " | ", next_breakpoint_to_pass, "\nsun: ", sun_growth_multiplier, "\ncurrent: ",growth_multiplier)
+
+
 
 func flower_growth():
 	for flower_sprite in flower_sprite_zone.get_children():
 		update_flower_visuals(flower_sprite, flower_in_zone.growth_stage)
-	if flower_in_zone.growth_stage < 3:
-		growth_timer.start(get_adjusted_time_left())
-		#print("timer started")
-	else:
+	if flower_in_zone.growth_stage == 3:
 		print("growth end, ", self)
 		growth_end.emit()
-
-func _on_growth_timer_timeout():
-	#print("timer done ", flower_in_zone.growth_stage)
-	flower_in_zone.grow()
+	else: flower_in_zone.grow()
 
 func update_flower_visuals(flower_sprite : Sprite2D, frame: int = -5):
 	if frame == -5:
@@ -172,113 +187,9 @@ func on_mouse_exited():
 	zone_hovered.emit(null)
 
 
-
-#func timer_adjust_for_rate(rate : float, remove_adjustment : bool = false):
-	##call once when entering the state
-	##if !growth_timer.is_stopped() and growth_timer.time_left >= 0:
-		##var adjusted_rate : float
-		##if remove_adjustment: adjusted_rate = 1/rate
-		##else: adjusted_rate = rate
-		##
-		##growth_time_left = growth_timer.time_left
-		##adjustment = rate
-		##flower_growth()
-		##print("timer ajusted while flower is growing : ", growth_timer.time_left)
-	##else:
-		#growth_time_left = growth_timer.time_left
-		##adjust_sun = true
-		#
-		#if remove_adjustment:
-			#sun_adjustment = 1/sun_growth_multiplier
-		#else:
-			#sun_adjustment = sun_growth_multiplier
-			#
-			#
-		#if flower_in_zone:
-			#flower_growth()
-		##growth_timer.wait_time *= rate
-		#
-#
-#func timer_adjust_for_sun(entered_sunlight : bool = true):
-	##call once when entering or leaving the sun
-	#timer_adjust_for_rate(sun_growth_multiplier, !entered_sunlight)
-	#pass
-
-func entered_the_sun():
-	if !flower_in_zone:
-		should_adjust = true
-		print("& Should adjust for sun later")
-		return
+func sun_change():
+	
 	if in_the_sun():
-		adjust_timer(!growth_timer.is_stopped())
-		print("& timer ajusted as zone entered : ", sun_adjust_amount)
-	print("& ", self)
-func left_the_sun():
-	if !flower_in_zone:
-		should_adjust = false
-		reset_ajustments()
-		print("& Shouldn't adjust for sun later")
-		return
-	if !in_the_sun():
-		adjust_timer(!growth_timer.is_stopped())
-		#adjust_sun = false
-		print("& timer ajusted as zone left : ", sun_adjust_amount)
-	print("& ", self)
-
-func adjust_timer(while_counting: bool):
-	if while_counting:
-		growth_timer.start(get_adjusted_time_left())
-	else:
-		growth_timer.wait_time = get_adjusted_time_left()
-	print("* Adjusted for sun. While counting down? ", while_counting)
-	print("* ", self)
-	
-func reset_ajustments():
-	should_adjust = false
-	sun_adjust_amount = 1.0
-	adjusted_for_sun = false
-	#adjustment = 1.0
-
-func get_adjusted_time_left() -> float: 
-	calculate_time_left(in_the_sun())
-	return growth_time_left
-
-#func get_sun_multiplier(reverted: bool = false):
-	#if !reverted:
-		#return sun_growth_multiplier
-	#else: return 1/sun_growth_multiplier
-func calculate_time_left(in_sun):
-	if growth_timer.is_stopped():
-		growth_time_left = growth_timer.wait_time
-	else:
-		growth_time_left = growth_timer.time_left
-	adjust_sun_multiplier(in_sun)
-	print("@ Calculating time left: ", growth_time_left)
-	growth_time_left /= sun_adjust_amount
-	print("@ Calculating time left: ", growth_time_left)
-	print("@ ", self)
-	
-
-func adjust_sun_multiplier(adjust_to_sunny : bool):
-	adjust_multiplier(sun_adjust_amount, adjusted_for_sun, adjust_to_sunny, sun_growth_multiplier)
-	print("§ Adjusting sun multiplier: ", sun_adjust_amount, " | ", sun_growth_multiplier)
-	print("§ ", adjusted_for_sun, adjust_to_sunny)
-	print("§ ", self)
-
-func adjust_multiplier(multiplier: float, multiplier_adjusted: bool, adjust_for_thing: bool, adjustment_baseline: float):
-	print("¤ Multiplier ", multiplier, " is adjusted: ", multiplier_adjusted, " and must be adjusted: ", adjust_for_thing, " so using ", adjustment_baseline, " to adjust.")
-	if multiplier_adjusted == adjust_for_thing:
-		multiplier = 1.0
-		pass
-	elif multiplier_adjusted == false and adjust_for_thing == true:
-		multiplier = adjustment_baseline
-		
-		pass
-	elif multiplier_adjusted == true and adjust_for_thing == false:
-		multiplier = 1/adjustment_baseline
-		pass
-	multiplier_adjusted = adjust_for_thing
-	print("¤ Multiplier is now ", multiplier, "; adjusted : ", multiplier_adjusted)
-	sun_adjust_amount = multiplier
-	adjusted_for_sun = multiplier_adjusted
-	pass
+		growth_multiplier *= sun_growth_multiplier
+		#print("& timer ajusted as zone entered : ", sun_adjust_amount)
+	else: growth_multiplier /= sun_growth_multiplier

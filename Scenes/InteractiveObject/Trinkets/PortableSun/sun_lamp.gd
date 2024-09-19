@@ -1,30 +1,17 @@
-extends InteractiveObject
+extends Trinket
 
 
 var animation_running : bool = false
-var holding_key : bool = false
-var mouse_in_zone : bool = false
+#var holding_key : bool = false
+
 
 #var hovered : bool = false
-var plots_affected : Array
+
 signal all_plots_in_sun_zone
 
 func _ready():
+	aoe_sprite = $AoESprite2D
 	movable = true
-	#animate_slight_nudge()
-	
-
-func _process(delta):
-	if movable and dragging and Globals.current_mode == Globals.mode.ARRANGE:
-		#var mousepos = get_global_mouse_position()
-		self.position = get_global_mouse_position()
-	
-	if Input.is_action_pressed("shift") and mouse_in_zone:
-		#holding_key = true
-		change_aoe_visibility(true)
-	elif Input.is_action_just_released("shift"):
-		#holding_key = false
-		change_aoe_visibility(false)
 
 func animate_slight_nudge():
 	if !animation_running:
@@ -38,15 +25,7 @@ func animate_slight_nudge():
 		
 	animation_running = false
 
-func change_aoe_visibility(vis : bool = !visible, do : bool = true):
-	if do:
-		$AoESprite2D.visible = vis
-		if vis:
-			for plot in plots_affected:
-				plot.zone_interaction(1)
-		else:
-			for plot in plots_affected:
-				plot.zone_interaction(2)
+
 
 func interact_with():
 	animate_slight_nudge()
@@ -71,17 +50,6 @@ func _on_interaction_area_2d_input_event(viewport, event, shape_idx):
 		elif event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
 			dragging = false
 			#print("-o--", movable,dragging)
-			
-	#if event is InputEventKey:
-		#print("input key ", event)
-		#if event.keycode == KEY_SHIFT and event.pressed:
-			#change_aoe_visibility(true)
-		#elif event.keycode == KEY_SHIFT and !event.pressed:
-			#change_aoe_visibility(false)
-			
-	#elif event is InputEventScreenTouch:
-		#if event.pressed and event.get_index() == 0:
-			#self.position = event.get_position()
 
 func _on_effect_area_2d_area_entered(area):
 	#var areas : Array
@@ -93,17 +61,17 @@ func _on_effect_area_2d_area_entered(area):
 	for plot in plots_affected:
 		if !plot.sun_lamps_affecting.has(self):
 			plot.sun_lamps_affecting.append(self)
-	area.get_parent().entered_the_sun()
+	area.get_parent().sun_change()
 
 
 func _on_effect_area_2d_area_exited(area):
 	if area.get_parent() is PlantingZone and area.get_parent().sun_lamps_affecting.has(self):
 		plots_affected.erase(area.get_parent())
-		#area.get_parent().zone_interaction(2)
+		area.get_parent().zone_interaction(PlantingZone.zone_interaction_type.EXITED)
 		area.get_parent().sun_lamps_affecting.erase(self)
 		#print("in the sun is ", area.get_parent().in_the_sun(), " because ", area.get_parent().sun_lamps_affecting)
 		if area.get_parent().sun_lamps_affecting.is_empty():
-			area.get_parent().left_the_sun()
+			area.get_parent().sun_change()
 			
 		#print("____ ", area.get_parent(), " has left the sun lamp area ", self,
 		#". Sun lamps affecting it still :",area.get_parent().sun_lamps_affecting)

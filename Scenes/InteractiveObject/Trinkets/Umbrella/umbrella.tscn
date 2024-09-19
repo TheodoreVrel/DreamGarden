@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://c72vnx6tn60pe"]
+
+[ext_resource type="Texture2D" uid="uid://1romg87usgv7" path="res://Assets/Umbrella2.png" id="1_ax3v8"]
+[ext_resource type="Script" path="res://Scenes/InteractiveObject/Trinkets/Umbrella/umbrella.gd" id="1_xe07n"]
+[ext_resource type="Texture2D" uid="uid://b7dm6w73yb8xi" path="res://Assets/rain_zone.png" id="2_yqjkk"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bfid2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_74xeh"]
+radius = 109.041
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7qdyx"]
+radius = 40.3113
+
+[node name="Umbrella" type="Node2D"]
+script = ExtResource("1_xe07n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -3)
+scale = Vector2(3, 3)
+texture = ExtResource("1_ax3v8")
+
+[node name="AoESprite2D" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.254902)
+material = SubResource("CanvasItemMaterial_bfid2")
+scale = Vector2(1.1116, 1.1116)
+texture = ExtResource("2_yqjkk")
+
+[node name="EffectArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectArea2D"]
+shape = SubResource("CircleShape2D_74xeh")
+
+[node name="InteractionArea2D" type="Area2D" parent="."]
+collision_layer = 2
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D"]
+shape = SubResource("CircleShape2D_7qdyx")
+
+[connection signal="area_entered" from="EffectArea2D" to="." method="_on_effect_area_2d_area_entered"]
+[connection signal="area_exited" from="EffectArea2D" to="." method="_on_effect_area_2d_area_exited"]
+[connection signal="input_event" from="InteractionArea2D" to="." method="_on_interaction_area_2d_input_event"]
+[connection signal="mouse_entered" from="InteractionArea2D" to="." method="_on_interaction_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="InteractionArea2D" to="." method="_on_interaction_area_2d_mouse_exited"]

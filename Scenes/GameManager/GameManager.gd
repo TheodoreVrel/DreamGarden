@@ -41,7 +41,7 @@ func _ready():
 	
 	#print(shop.get_signal_connection_list("seed_stock_updated"))
 
-func on_cast_hit_object(obj: Node):
+func on_cast_hit_object(obj):
 	if obj:
 		if obj.get_parent().has_method("zone_cast"):
 			obj.get_parent().zone_cast()

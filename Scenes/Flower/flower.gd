@@ -201,7 +201,7 @@ func grow():
 		growing = true
 		
 		#print("growth stage : ", growth_stage)
-		flower_grew.emit()
+		#flower_grew.emit()
 
 #func flower_growth_cycle():
 	##$CycleTimer.start()

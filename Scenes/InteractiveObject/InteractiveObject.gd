@@ -31,7 +31,7 @@ func interact_with():
 	pass
 
 
-enum zone_interaction_type{HOVERED, CLICKED,EXITED}
+enum zone_interaction_type{HOVERED, CLICKED, EXITED, SUN, RAIN}
 func zone_interaction(interaction: zone_interaction_type):
 	match interaction:
 		zone_interaction_type.HOVERED:
@@ -41,5 +41,11 @@ func zone_interaction(interaction: zone_interaction_type):
 			#print("exited")
 			pass
 		zone_interaction_type.CLICKED:
+			#print("clicked")
+			pass
+		zone_interaction_type.SUN:
+			#print("clicked")
+			pass
+		zone_interaction_type.RAIN:
 			#print("clicked")
 			pass
