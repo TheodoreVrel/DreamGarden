@@ -6,7 +6,8 @@ class_name PlantingZone
 @onready var growth_timer : Timer = find_child("GrowthTimer")
 @onready var area : Area2D = find_child("PlantingZone")
 
-var default_color: Color = Color.DARK_GRAY
+var default_color: Color = Color.BURLYWOOD
+var default_color_value : Color = Color(149, 111, 82) #modify value
 var hover_color: Color = Color.BISQUE
 var click_color: Color = Color.GOLD
 var sun_color: Color = Color.GOLD
@@ -37,7 +38,7 @@ var timer_start: bool = false
 var sun_lamps_affecting : Array
 var umbrellas_affecting : Array
 #var in_the_sun: bool = false
-var water_level: int = 0
+var water_level: float = 0.0
 var water_needs: int = 1
 
 signal growth_end
