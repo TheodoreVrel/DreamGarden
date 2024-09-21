@@ -11,7 +11,7 @@ extends Node
 
 #var packed_flower_scene : PackedScene = preload("res://Scenes/Flower/flower.tscn")
 
-var currently_cast_object: Node2D
+var currently_cast_object
 var currently_held_seed: Flower = null
 
 
