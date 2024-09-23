@@ -24,22 +24,48 @@ var flower_sprite_zone
 var normal_growth_multipler: float = 3.5 # = 60 for minutes
 var growth_multiplier : float = 1.0
 var sun_growth_multiplier: float = 1.0
-var watered_multiplier: float = 1.25
+#var watered_multiplier: float = 1.25
 
 var total_normal_growth_time : float = 10.0
 var quarter_growth_break_points : Array
 #var last_breakpoint_passed : float
 var next_breakpoint_to_pass : float
 var growth_time_left: float
-func in_the_sun() -> bool: return !sun_lamps_affecting.is_empty()
 var timer_start: bool = false
 
+func is_in_the_sun() -> bool: return !sun_lamps_affecting.is_empty()
+func get_current_sun_multiplier() -> float:
+	if is_in_the_sun():
+		return sun_growth_multiplier
+	else: return 1.0
+
+
+var water_level: float = 0.0 #goes from 0 to 1
+var water_needs: int = 1
+func get_current_water_multiplier() -> float:
+	var result: float = 0.0
+	match(water_needs):
+		1: 
+			result = 1.9*water_level - 0.75*water_level
+			if result >= 1.1:
+				result = 1.1
+		2: 
+			result = 0.4*water_level - 0.85*water_level
+			if result >= 1.2:
+				result = 1.2
+		3: 
+			result = 1.5*water_level - 0.05*water_level
+			if result >= 1.35:
+				result = 1.35
+		_: 	result = 1.0
+	return result
+var water_full_time: float = 15.0
+var water_empty_time: float = 5.0 * 60
 
 var sun_lamps_affecting : Array
 var umbrellas_affecting : Array
 #var in_the_sun: bool = false
-var water_level: float = 0.0
-var water_needs: int = 1
+
 
 signal growth_end
 signal zone_hovered
@@ -129,7 +155,9 @@ func add_flower_visuals():
 			flower_sprite_zone.add_child(flower_sprite)
 
 func plant_growth(delta):
-	growth_time_left -= delta * growth_multiplier
+	#apply_watered_multiplier()
+	growth_time_left -= delta * get_current_sun_multiplier() * get_current_water_multiplier()
+	print(growth_time_left, "  ", get_current_sun_multiplier(), "   ", get_current_water_multiplier(), " ", water_needs)
 	
 	if growth_time_left <= next_breakpoint_to_pass and !quarter_growth_break_points.is_empty():
 		quarter_growth_break_points.erase(next_breakpoint_to_pass)
@@ -152,8 +180,8 @@ func growth_info_setup():
 		quarter_growth_break_points.append(quarter * (3-i))
 	next_breakpoint_to_pass = quarter_growth_break_points[0]
 	
-	if in_the_sun():
-		sun_change()
+	#if is_in_the_sun():
+		#sun_change()
 	
 	timer_start = true
 	#quarter_normal_growth_time = total_normal_growth_time / 4
@@ -188,9 +216,12 @@ func on_mouse_exited():
 	zone_hovered.emit(null)
 
 
-func sun_change():
+#func sun_change():
+	#
+	#if is_in_the_sun():
+		#growth_multiplier *= sun_growth_multiplier
+		##print("& timer ajusted as zone entered : ", sun_adjust_amount)
+	#else: growth_multiplier /= sun_growth_multiplier
+#func apply_watered_multiplier():
+	#growth_multiplier *= get_current_water_multiplier()
 	
-	if in_the_sun():
-		growth_multiplier *= sun_growth_multiplier
-		#print("& timer ajusted as zone entered : ", sun_adjust_amount)
-	else: growth_multiplier /= sun_growth_multiplier

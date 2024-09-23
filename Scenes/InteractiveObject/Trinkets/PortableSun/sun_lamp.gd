@@ -61,7 +61,7 @@ func _on_effect_area_2d_area_entered(area):
 	for plot in plots_affected:
 		if !plot.sun_lamps_affecting.has(self):
 			plot.sun_lamps_affecting.append(self)
-	area.get_parent().sun_change()
+	#area.get_parent().sun_change()
 
 
 func _on_effect_area_2d_area_exited(area):
@@ -70,8 +70,8 @@ func _on_effect_area_2d_area_exited(area):
 		area.get_parent().zone_interaction(PlantingZone.zone_interaction_type.EXITED)
 		area.get_parent().sun_lamps_affecting.erase(self)
 		#print("in the sun is ", area.get_parent().in_the_sun(), " because ", area.get_parent().sun_lamps_affecting)
-		if area.get_parent().sun_lamps_affecting.is_empty():
-			area.get_parent().sun_change()
+		#if area.get_parent().sun_lamps_affecting.is_empty():
+			#area.get_parent().sun_change()
 			
 		#print("____ ", area.get_parent(), " has left the sun lamp area ", self,
 		#". Sun lamps affecting it still :",area.get_parent().sun_lamps_affecting)
