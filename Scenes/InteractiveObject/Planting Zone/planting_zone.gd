@@ -46,16 +46,16 @@ func get_current_water_multiplier() -> float:
 	var result: float = 0.0
 	match(water_needs):
 		1: 
-			result = 1.9*water_level - 0.75*water_level
-			if result >= 1.1:
+			result = 1.9*water_level**2 - 0.75*water_level
+			if result > 1.1:
 				result = 1.1
 		2: 
-			result = 0.4*water_level - 0.85*water_level
-			if result >= 1.2:
+			result = 0.4*water_level**2 + 0.85*water_level
+			if result > 1.2:
 				result = 1.2
 		3: 
-			result = 1.5*water_level - 0.05*water_level
-			if result >= 1.35:
+			result = 1.5*water_level - 0.05*water_level**2
+			if result > 1.35:
 				result = 1.35
 		_: 	result = 1.0
 	return result
@@ -79,7 +79,6 @@ func _ready():
 	if polygon:
 		polygon.color = default_color
 	#growth_timer.connect("timeout", _on_growth_timer_timeout)
-	
 	area.connect("mouse_entered", on_mouse_entered)
 	area.connect("mouse_exited", on_mouse_exited)
 
@@ -96,8 +95,18 @@ func _process(delta):
 		#"]\nCurrent_sun_adjustment [", sun_adjust_amount, "]\n__________________")
 	#if flower_in_zone:
 			#print(sun_adjust_amount)
-	if flower_in_zone and timer_start and Globals.current_mode == Globals.mode.NORMAL:
-		plant_growth(delta)
+	if Globals.current_mode == Globals.mode.NORMAL:
+		if flower_in_zone and timer_start:
+			plant_growth(delta)
+		if water_level > 0.0 and umbrellas_affecting.is_empty():
+			#print("1")
+			water_evaporation(delta)
+		if water_level < 1.0 and !umbrellas_affecting.is_empty():
+			being_watered(delta)
+			#print("2")
+		#if water_level < 0.001 or water_level > 1.001:
+			##print("3")
+			#clamp(water_level, 0, 1)
 
 
 func zone_interaction(interaction: zone_interaction_type):
@@ -157,7 +166,7 @@ func add_flower_visuals():
 func plant_growth(delta):
 	#apply_watered_multiplier()
 	growth_time_left -= delta * get_current_sun_multiplier() * get_current_water_multiplier()
-	print(growth_time_left, "  ", get_current_sun_multiplier(), "   ", get_current_water_multiplier(), " ", water_needs)
+	print(growth_time_left, "  | sun = ", get_current_sun_multiplier(), "  water = ", get_current_water_multiplier(), " ", water_level)
 	
 	if growth_time_left <= next_breakpoint_to_pass and !quarter_growth_break_points.is_empty():
 		quarter_growth_break_points.erase(next_breakpoint_to_pass)
@@ -216,6 +225,15 @@ func on_mouse_exited():
 	zone_hovered.emit(null)
 
 
+func water_evaporation(delta):
+	var sun_effect : float = 1.0
+	if is_in_the_sun(): sun_effect = 1.2
+	#water_level -= (delta / water_empty_time) * sun_effect
+	water_level = clampf(water_level - (delta / water_empty_time) * sun_effect, 0.0, 1.0)
+
+func being_watered(delta):
+	water_level = clampf(water_level + (delta / water_full_time), 0.0, 1.0)
+	#water_level += (delta / water_full_time)
 #func sun_change():
 	#
 	#if is_in_the_sun():
