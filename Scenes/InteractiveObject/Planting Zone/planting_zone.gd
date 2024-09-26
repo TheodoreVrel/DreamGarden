@@ -6,14 +6,14 @@ class_name PlantingZone
 @onready var growth_timer : Timer = find_child("GrowthTimer")
 @onready var area : Area2D = find_child("PlantingZone")
 
-var default_color: Color = Color.BURLYWOOD
-var default_color_value : Color = Color(149, 111, 82) #modify value
+#var default_color: Color = Color.BURLYWOOD
+var default_color : Color = Color(102, 74, 53) #modify value between 90 and 40
 var hover_color: Color = Color.BISQUE
 var click_color: Color = Color.GOLD
 var sun_color: Color = Color.GOLD
 var rain_color: Color = Color.DODGER_BLUE
 
-
+var hovered: bool = false
 
 #@export_range(1,4) var zone_size : int 
 @export var flower_in_zone: Flower
@@ -78,6 +78,7 @@ func _ready():
 		#player.connect("cast_exit", _on_zone_exit)
 	if polygon:
 		polygon.color = default_color
+		adjust_color_value()
 	#growth_timer.connect("timeout", _on_growth_timer_timeout)
 	area.connect("mouse_entered", on_mouse_entered)
 	area.connect("mouse_exited", on_mouse_exited)
@@ -113,8 +114,9 @@ func zone_interaction(interaction: zone_interaction_type):
 	match interaction:
 		zone_interaction_type.HOVERED:
 			polygon.color = hover_color
+			hovered = true
 		zone_interaction_type.EXITED:
-			#print("exited")
+			hovered = false
 			polygon.color = default_color
 		zone_interaction_type.CLICKED:
 			polygon.color = click_color
@@ -166,7 +168,7 @@ func add_flower_visuals():
 func plant_growth(delta):
 	#apply_watered_multiplier()
 	growth_time_left -= delta * get_current_sun_multiplier() * get_current_water_multiplier()
-	print(growth_time_left, "  | sun = ", get_current_sun_multiplier(), "  water = ", get_current_water_multiplier(), " ", water_level)
+	#print(growth_time_left, "  | sun = ", get_current_sun_multiplier(), "  water = ", get_current_water_multiplier(), " ", water_level)
 	
 	if growth_time_left <= next_breakpoint_to_pass and !quarter_growth_break_points.is_empty():
 		quarter_growth_break_points.erase(next_breakpoint_to_pass)
@@ -230,9 +232,18 @@ func water_evaporation(delta):
 	if is_in_the_sun(): sun_effect = 1.2
 	#water_level -= (delta / water_empty_time) * sun_effect
 	water_level = clampf(water_level - (delta / water_empty_time) * sun_effect, 0.0, 1.0)
+	adjust_color_value()
 
 func being_watered(delta):
 	water_level = clampf(water_level + (delta / water_full_time), 0.0, 1.0)
+	adjust_color_value()
+
+func adjust_color_value(): 
+	default_color.v =  0.9 - water_level * 0.5
+	if !hovered: polygon.color = default_color
+	#print(default_color.v, "   ", default_color)
+
+
 	#water_level += (delta / water_full_time)
 #func sun_change():
 	#

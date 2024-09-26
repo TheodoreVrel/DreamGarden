@@ -23,7 +23,7 @@ scale = Vector2(0.15, 0.15)
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 z_index = -1
-color = Color(0.41, 0.29848, 0.2132, 1)
+color = Color(0.411765, 0.298039, 0.211765, 1)
 polygon = PackedVector2Array(-3, -3, -3, 3, 3, 3, 3, -3)
 
 [node name="Markers" type="Node2D" parent="."]
