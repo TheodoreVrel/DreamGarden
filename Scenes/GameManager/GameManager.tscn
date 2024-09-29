@@ -50,4 +50,4 @@ scale = Vector2(2.36, 2.36)
 metadata/_edit_lock_ = true
 
 [node name="Umbrella" parent="." instance=ExtResource("11_mooqb")]
-position = Vector2(-44, 250)
+position = Vector2(-83, 246)

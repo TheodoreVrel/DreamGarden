@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c72vnx6tn60pe"]
+[gd_scene load_steps=9 format=3 uid="uid://c72vnx6tn60pe"]
 
 [ext_resource type="Texture2D" uid="uid://1romg87usgv7" path="res://Assets/Umbrella2.png" id="1_ax3v8"]
 [ext_resource type="Script" path="res://Scenes/InteractiveObject/Trinkets/Umbrella/umbrella.gd" id="1_xe07n"]
 [ext_resource type="Texture2D" uid="uid://b7dm6w73yb8xi" path="res://Assets/rain_zone.png" id="2_yqjkk"]
+[ext_resource type="Texture2D" uid="uid://cm5liyxxre8lt" path="res://Assets/raindrops.png" id="4_u6ngu"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bfid2"]
 
@@ -11,6 +12,20 @@ radius = 109.041
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7qdyx"]
 radius = 40.3113
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_io6m5"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(-75, -75, 0)
+emission_shape_scale = Vector3(20, 20, 1)
+emission_shape = 2
+emission_sphere_radius = 5.0
+angle_min = -598.5
+angle_max = -598.5
+inherit_velocity_ratio = 0.3
+direction = Vector3(0.45, 0.5, 0)
+spread = 5.0
+initial_velocity_min = 93.08
+initial_velocity_max = 93.08
 
 [node name="Umbrella" type="Node2D"]
 script = ExtResource("1_xe07n")
@@ -22,13 +37,13 @@ scale = Vector2(3, 3)
 texture = ExtResource("1_ax3v8")
 
 [node name="AoESprite2D" type="Sprite2D" parent="."]
-visible = false
 modulate = Color(1, 1, 1, 0.254902)
 material = SubResource("CanvasItemMaterial_bfid2")
 scale = Vector2(1.1116, 1.1116)
 texture = ExtResource("2_yqjkk")
 
 [node name="EffectArea2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 4
 
@@ -41,6 +56,13 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D"]
 shape = SubResource("CircleShape2D_7qdyx")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(0, 0.279)
+amount = 120
+process_material = SubResource("ParticleProcessMaterial_io6m5")
+texture = ExtResource("4_u6ngu")
+lifetime = 1.2
 
 [connection signal="area_entered" from="EffectArea2D" to="." method="_on_effect_area_2d_area_entered"]
 [connection signal="area_exited" from="EffectArea2D" to="." method="_on_effect_area_2d_area_exited"]

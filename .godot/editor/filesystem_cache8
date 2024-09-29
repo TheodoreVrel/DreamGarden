@@ -1,13 +1,20 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1726580202
+::res://::1726961895
 README.md::TextFile::-1::1726221755::0::1::::<><>::
-::res://Assets/::1726332914
+::res://Assets/::1727638068
+Dream_Catcher.png::CompressedTexture2D::6439883926290073252::1726918216::1726918215::1::::<><>::
 flower sheet.png::CompressedTexture2D::5891840888376596344::1726221754::1726221755::1::::<><>::
 icon.svg::CompressedTexture2D::3321816935767871973::1726221755::1726221755::1::::<><>::
+Light_texture.png::CompressedTexture2D::6383878078068305320::1726918216::1726918215::1::::<><>::
 Off-circle.png::CompressedTexture2D::2491504331668401613::1726221755::1726221755::1::::<><>::
+raindrops.png::CompressedTexture2D::5677722294094887517::1727639899::1727639904::1::::<><>::
+rain_zone.png::CompressedTexture2D::4639441983148352674::1726918216::1726918216::1::::<><>::
+sun_zone.png::CompressedTexture2D::7262156190909142538::1726918216::1726918216::1::::<><>::
+Umbrella2.png::CompressedTexture2D::1860876191433469458::1726918216::1726918216::1::::<><>::
+Umbrella.png::CompressedTexture2D::4596461049417547391::1726918216::1726918216::1::::<><>::
 ::res://Assets/JSON/::1726507108
 flowers.json::JSON::-1::1726332914::0::1::::<><>::
-::res://Assets/Prototypes/::1726579865
+::res://Assets/Prototypes/::1726961941
 0.png::CompressedTexture2D::9097353839124179842::1726221754::1726221754::1::::<><>::
 0_seed.png::CompressedTexture2D::8259797006236610211::1726221754::1726221755::1::::<><>::
 1.png::CompressedTexture2D::7065166065988035867::1726221755::1726221754::1::::<><>::
@@ -36,53 +43,62 @@ flowers.json::JSON::-1::1726332914::0::1::::<><>::
 25_seed.png::CompressedTexture2D::136618232395540158::1726507107::1726507107::1::::<><>::
 26.png::CompressedTexture2D::547267093009864296::1726507108::1726507107::1::::<><>::
 26_seed.png::CompressedTexture2D::4774044610556839934::1726507107::1726507108::1::::<><>::
-::res://Scenes/::1726580202
-::res://Scenes/Debug/::1726580202
-debug.gd::GDScript::-1::1726580202::0::1::::<>CanvasLayer<>::
-debug.tscn::PackedScene::7200748333525789164::1726580202::0::1::::<><>::res://Scenes/Debug/debug.gd
-::res://Scenes/Flower/::1726580202
-flower.gd::GDScript::-1::1726580202::0::1::::Flower<>Node2D<>::
-flower.tscn::PackedScene::838082510066184521::1726580202::0::1::::<><>::res://Scenes/Flower/flower.gd<>uid://d2u3dan7p5n2y::::res://Assets/Prototypes/0.png
-::res://Scenes/GameManager/::1726580202
-Camera.gd::GDScript::-1::1726580202::0::1::::<>Camera2D<>::
-GameManager.gd::GDScript::-1::1726580202::0::1::::<>Node<>::
-GameManager.tscn::PackedScene::5513268062674030466::1726580202::0::1::::<><>::res://Scenes/GameManager/GameManager.gd<>uid://d3hqkt0vfcs0s::::res://Scenes/Garden/garden.tscn<>uid://drc1bvw257jhr::::res://Scenes/Player/player.tscn<>res://Scenes/GameManager/Camera.gd<>uid://wpo3yfd4vej0::::res://Scenes/Inventory/Inventory.tscn<>uid://bi4rg6u25c7fi::::res://Scenes/UIManager/GardenUI.tscn<>uid://ct72ybvsior3c::::res://Scenes/InteractiveObject/Shop/shop_grid.tscn<>uid://2dqp5grdm86n::::res://Scenes/InteractiveObject/Shop/Shop.tscn<>uid://cq60es5c30uwb::::res://Scenes/UIManager/flower_tooltip.tscn
-global_flowers_data.gd::GDScript::-1::1726580202::0::1::::<>Node<>::
-::res://Scenes/Garden/::1726580202
-garden.gd::GDScript::-1::1726580202::0::1::::<>Node2D<>::
-garden.tscn::PackedScene::9139990684570629740::1726580202::0::1::::<><>::uid://dwel875srxe3s::::res://Scenes/InteractiveObject/Planting Zone/Triangle/planting_zone_triangle.tscn<>res://Scenes/Garden/garden.gd<>uid://d0ysplh3oee43::::res://Scenes/InteractiveObject/Planting Zone/Square/planting_zone_square.tscn
-::res://Scenes/InteractiveObject/::1726580202
-InteractiveObject.gd::GDScript::-1::1726580202::0::1::::InteractiveObject<>Node2D<>::
-::res://Scenes/InteractiveObject/NPCController/::1726580202
-AbstractNPC.tscn::PackedScene::4964346824298431994::1726580202::0::1::::<><>::uid://l68djswjsttx::::res://Scenes/Flower/flower.tscn<>res://Scenes/InteractiveObject/NPCController/NPC.gd
-NPC.gd::GDScript::-1::1726580202::0::1::::NPC<>InteractiveObject<>::
-Sandman.tscn::PackedScene::747599024195906690::1726580202::0::1::::<><>::res://Scenes/InteractiveObject/NPCController/NPC.gd<>uid://l68djswjsttx::::res://Scenes/Flower/flower.tscn
-::res://Scenes/InteractiveObject/Planting Zone/::1726580202
-planting_zone.gd::GDScript::-1::1726580202::0::1::::PlantingZone<>InteractiveObject<>::
-::res://Scenes/InteractiveObject/Planting Zone/area/::1726580202
-planting_zone_abstract.tscn::PackedScene::3118953437863914310::1726580202::0::1::::<><>::res://Scenes/InteractiveObject/Planting Zone/planting_zone.gd
-planting_zone_area.gd::GDScript::-1::1726580202::0::1::::<>Area2D<>::
-::res://Scenes/InteractiveObject/Planting Zone/Square/::1726580202
-planting_zone_square.tscn::PackedScene::8964648490767463110::1726580202::0::1::::<><>::uid://bko3yb2dj2i2i::::res://Scenes/InteractiveObject/Planting Zone/area/planting_zone_abstract.tscn<>res://Scenes/InteractiveObject/Planting Zone/planting_zone.gd
-::res://Scenes/InteractiveObject/Planting Zone/Triangle/::1726580202
-planting_zone_triangle.tscn::PackedScene::8712402668184349410::1726580202::0::1::::<><>::res://Scenes/InteractiveObject/Planting Zone/planting_zone.gd<>uid://bko3yb2dj2i2i::::res://Scenes/InteractiveObject/Planting Zone/area/planting_zone_abstract.tscn
-::res://Scenes/InteractiveObject/Shop/::1726580202
-Shop.tscn::PackedScene::1902291756028143455::1726580202::0::1::::<><>::res://Scenes/InteractiveObject/Shop/shop_manager.gd<>uid://cp7b0176agyai::::res://Assets/flower sheet.png
-ShopGrid.gd::GDScript::-1::1726580202::0::1::::<>Control<>::
-shop_grid.tscn::PackedScene::6174171788290484334::1726580202::0::1::::<><>::res://Scenes/InteractiveObject/Shop/ShopGrid.gd<>uid://cw37aubypcast::::res://Scenes/Inventory/InventorySlot.tscn
-shop_manager.gd::GDScript::-1::1726580202::0::1::::<>InteractiveObject<>::
-::res://Scenes/Inventory/::1726580202
-Inventory.gd::GDScript::-1::1726580202::0::1::::<>Node<>::
-Inventory.tscn::PackedScene::1576021534935992563::1726580202::0::1::::<><>::res://Scenes/Inventory/Inventory.gd
-InventorySlot.gd::GDScript::-1::1726580202::0::1::::InventorySlot<>Control<>::
-InventorySlot.tscn::PackedScene::6376742501427496887::1726580202::0::1::::<><>::res://Scenes/Inventory/InventorySlot.gd<>uid://bbq5yhpnhb0ar::::res://Assets/Off-circle.png<>res://Scenes/Inventory/TextureRectBox.gd
-TextureRectBox.gd::GDScript::-1::1726580202::0::1::::<>TextureRect<>::
-::res://Scenes/Player/::1726580202
-Player.gd::GDScript::-1::1726580202::0::1::::<>CharacterBody2D<>::
-player.tscn::PackedScene::8358182714283971299::1726580202::0::1::::<><>::res://Scenes/Player/Player.gd<>uid://bnld3st8fkwh6::::res://Assets/icon.svg<>res://Scenes/Player/RayCast2D.gd
-RayCast2D.gd::GDScript::-1::1726580202::0::1::::<>RayCast2D<>::
-::res://Scenes/UIManager/::1726580202
-flower_tooltip.gd::GDScript::-1::1726580202::0::1::::<>Control<>::
-flower_tooltip.tscn::PackedScene::5961384635859084293::1726580202::0::1::::<><>::res://Scenes/UIManager/flower_tooltip.gd
-GardenUI.tscn::PackedScene::3008842951692457986::1726580202::0::1::::<><>::res://Scenes/UIManager/UI.gd
-UI.gd::GDScript::-1::1726580202::0::1::::<>Control<>::
+sun_lamp.png::CompressedTexture2D::8482111111536331962::1726918216::1726918216::1::::<><>::
+::res://Scenes/::1726961895
+globals.gd::GDScript::-1::1726961895::0::1::::<>Node<>::
+::res://Scenes/Debug/::1726961896
+debug.gd::GDScript::-1::1726961896::0::1::::<>CanvasLayer<>::
+debug.tscn::PackedScene::7200748333525789164::1726961895::0::1::::<><>::res://Scenes/Debug/debug.gd
+::res://Scenes/Flower/::1726961896
+flower.gd::GDScript::-1::1726961896::0::1::::Flower<>Node2D<>::
+flower.tscn::PackedScene::838082510066184521::1726961895::0::1::::<><>::res://Scenes/Flower/flower.gd<>uid://d2u3dan7p5n2y::::res://Assets/Prototypes/0.png
+::res://Scenes/GameManager/::1727639414
+Camera.gd::GDScript::-1::1726961895::0::1::::<>Camera2D<>::
+GameManager.gd::GDScript::-1::1726961895::0::1::::<>Node<>::
+GameManager.tscn::PackedScene::5513268062674030466::1726961896::0::1::::<><>::res://Scenes/GameManager/GameManager.gd<>uid://d3hqkt0vfcs0s::::res://Scenes/Garden/garden.tscn<>uid://drc1bvw257jhr::::res://Scenes/Player/player.tscn<>res://Scenes/GameManager/Camera.gd<>uid://wpo3yfd4vej0::::res://Scenes/Inventory/Inventory.tscn<>uid://bi4rg6u25c7fi::::res://Scenes/UIManager/GardenUI.tscn<>uid://dh7nh0cxoeass::::res://Scenes/InteractiveObject/Trinkets/PortableSun/sun_lamp.tscn<>uid://ct72ybvsior3c::::res://Scenes/InteractiveObject/Shop/shop_grid.tscn<>uid://2dqp5grdm86n::::res://Scenes/InteractiveObject/Shop/Shop.tscn<>uid://cq60es5c30uwb::::res://Scenes/UIManager/flower_tooltip.tscn<>uid://c72vnx6tn60pe::::res://Scenes/InteractiveObject/Trinkets/Umbrella/umbrella.tscn
+global_flowers_data.gd::GDScript::-1::1726961896::0::1::::<>Node<>::
+::res://Scenes/Garden/::1726961895
+garden.gd::GDScript::-1::1726961895::0::1::::<>Node2D<>::
+garden.tscn::PackedScene::9139990684570629740::1726961895::0::1::::<><>::uid://dwel875srxe3s::::res://Scenes/InteractiveObject/Planting Zone/Triangle/planting_zone_triangle.tscn<>res://Scenes/Garden/garden.gd<>uid://d0ysplh3oee43::::res://Scenes/InteractiveObject/Planting Zone/Square/planting_zone_square.tscn
+::res://Scenes/InteractiveObject/::1726961896
+InteractiveObject.gd::GDScript::-1::1726961896::0::1::::InteractiveObject<>Node2D<>::
+::res://Scenes/InteractiveObject/NPCController/::1726961896
+AbstractNPC.tscn::PackedScene::4964346824298431994::1726961895::0::1::::<><>::uid://l68djswjsttx::::res://Scenes/Flower/flower.tscn<>res://Scenes/InteractiveObject/NPCController/NPC.gd
+NPC.gd::GDScript::-1::1726961896::0::1::::NPC<>InteractiveObject<>::
+Sandman.tscn::PackedScene::747599024195906690::1726961895::0::1::::<><>::res://Scenes/InteractiveObject/NPCController/NPC.gd<>uid://l68djswjsttx::::res://Scenes/Flower/flower.tscn
+::res://Scenes/InteractiveObject/Planting Zone/::1727636468
+planting_zone.gd::GDScript::-1::1726961896::0::1::::PlantingZone<>InteractiveObject<>::
+::res://Scenes/InteractiveObject/Planting Zone/area/::1726961895
+planting_zone_abstract.tscn::PackedScene::3118953437863914310::1726961895::0::1::::<><>::res://Scenes/InteractiveObject/Planting Zone/planting_zone.gd
+::res://Scenes/InteractiveObject/Planting Zone/Square/::1727636468
+planting_zone_square.tscn::PackedScene::8964648490767463110::1726961896::0::1::::<><>::uid://bko3yb2dj2i2i::::res://Scenes/InteractiveObject/Planting Zone/area/planting_zone_abstract.tscn<>res://Scenes/InteractiveObject/Planting Zone/planting_zone.gd
+::res://Scenes/InteractiveObject/Planting Zone/Triangle/::1726961895
+planting_zone_triangle.tscn::PackedScene::8712402668184349410::1726961895::0::1::::<><>::res://Scenes/InteractiveObject/Planting Zone/planting_zone.gd<>uid://bko3yb2dj2i2i::::res://Scenes/InteractiveObject/Planting Zone/area/planting_zone_abstract.tscn
+::res://Scenes/InteractiveObject/Shop/::1726961895
+Shop.tscn::PackedScene::1902291756028143455::1726961895::0::1::::<><>::res://Scenes/InteractiveObject/Shop/shop_manager.gd<>uid://cp7b0176agyai::::res://Assets/flower sheet.png
+ShopGrid.gd::GDScript::-1::1726961895::0::1::::<>Control<>::
+shop_grid.tscn::PackedScene::6174171788290484334::1726961895::0::1::::<><>::res://Scenes/InteractiveObject/Shop/ShopGrid.gd<>uid://cw37aubypcast::::res://Scenes/Inventory/InventorySlot.tscn
+shop_manager.gd::GDScript::-1::1726961895::0::1::::<>InteractiveObject<>::
+::res://Scenes/InteractiveObject/Trinkets/::1726961895
+trinkets.gd::GDScript::-1::1726961895::0::1::::Trinket<>InteractiveObject<>::
+::res://Scenes/InteractiveObject/Trinkets/PortableSun/::1727636468
+sun_lamp.gd::GDScript::-1::1726961896::0::1::::<>Trinket<>::
+sun_lamp.tscn::PackedScene::7717447183375984726::1726961861::0::1::::<><>::res://Scenes/InteractiveObject/Trinkets/PortableSun/sun_lamp.gd<>uid://ds32epfgxvi1o::::res://Assets/Prototypes/sun_lamp.png<>uid://cw7nslmws2xau::::res://Assets/Light_texture.png<>uid://dbp3wfcub362i::::res://Assets/sun_zone.png
+::res://Scenes/InteractiveObject/Trinkets/Umbrella/::1727639414
+umbrella.gd::GDScript::-1::1726961895::0::1::::<>Trinket<>::
+umbrella.tscn::PackedScene::7075922092139595214::1726961895::0::1::::<><>::uid://1romg87usgv7::::res://Assets/Umbrella2.png<>res://Scenes/InteractiveObject/Trinkets/Umbrella/umbrella.gd<>uid://b7dm6w73yb8xi::::res://Assets/rain_zone.png
+::res://Scenes/Inventory/::1726961896
+Inventory.gd::GDScript::-1::1726961896::0::1::::<>Node<>::
+Inventory.tscn::PackedScene::1576021534935992563::1726961895::0::1::::<><>::res://Scenes/Inventory/Inventory.gd
+InventorySlot.gd::GDScript::-1::1726961895::0::1::::InventorySlot<>Control<>::
+InventorySlot.tscn::PackedScene::6376742501427496887::1726961896::0::1::::<><>::res://Scenes/Inventory/InventorySlot.gd<>uid://bbq5yhpnhb0ar::::res://Assets/Off-circle.png<>res://Scenes/Inventory/TextureRectBox.gd
+TextureRectBox.gd::GDScript::-1::1726961895::0::1::::<>TextureRect<>::
+::res://Scenes/Player/::1726961895
+Player.gd::GDScript::-1::1726961895::0::1::::<>CharacterBody2D<>::
+player.tscn::PackedScene::8358182714283971299::1726961895::0::1::::<><>::res://Scenes/Player/Player.gd<>uid://bnld3st8fkwh6::::res://Assets/icon.svg<>res://Scenes/Player/RayCast2D.gd
+RayCast2D.gd::GDScript::-1::1726961895::0::1::::<>RayCast2D<>::
+::res://Scenes/UIManager/::1726961896
+flower_tooltip.gd::GDScript::-1::1726961895::0::1::::<>Control<>::
+flower_tooltip.tscn::PackedScene::5961384635859084293::1726961895::0::1::::<><>::res://Scenes/UIManager/flower_tooltip.gd
+GardenUI.tscn::PackedScene::3008842951692457986::1726961896::0::1::::<><>::res://Scenes/UIManager/UI.gd
+UI.gd::GDScript::-1::1726961895::0::1::::<>Control<>::
